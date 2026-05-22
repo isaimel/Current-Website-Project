@@ -4,26 +4,26 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch(queryURL)
     .then(response => response.json())
     .then(listsData => {
-      const saulList = listsData.saulList;
-      const saulImages = loadImages(saulList);
       const scrollContainer = document.getElementById("portfolio_scroll");
-      addScrollFunctionality(scrollContainer, saulImages);
+      addScrollFunctionality(scrollContainer, listsData.saulList);
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
   
+
+
   function loadImages(givenList){
     var imageList = [];
     givenList.forEach(item => {
       var imagePath = './' + item + '.jpg';
-      var img = new Image();
+      const img = new Image();
       img.src = imagePath;
-      img.display = "none";
-      imageList.push(img);
+      imageList.push(imagePath);
     });
     return imageList;
   }
-
-  function addScrollFunctionality(scrollContainer, selectedImages){
+  
+  
+  function addScrollFunctionality(scrollContainer, entry){
     var leftDiv = scrollContainer.querySelector(".left_image");
     var leftImage = leftDiv.querySelector(".slides");
 
@@ -39,21 +39,18 @@ document.addEventListener('DOMContentLoaded', () => {
     var centralIndex = 1;
     leftButton.addEventListener("click", () => plusDivs(-1));
     rightButton.addEventListener("click", () => plusDivs(1));
-    showDivs(centralIndex);
-
+        
+    const selectedImages = loadImages(entry);
+ 
     function plusDivs(n) {
       centralIndex = modLoop(centralIndex + n, selectedImages.length);
       showDivs(centralIndex);
     }
 
     function showDivs(n) {
-      leftImage.innerHTML = ""
-      centerImage.innerHTML = ""
-      rightImage.innerHTML = ""
-
-      leftImage.appendChild(selectedImages[modLoop(n - 1, selectedImages.length)]);
-      centerImage.appendChild(selectedImages[centralIndex]);
-      rightImage.appendChild(selectedImages[modLoop(n + 1, selectedImages.length)]);
+      leftImage.src = selectedImages[modLoop(n - 1, selectedImages.length)];
+      centerImage.src = selectedImages[centralIndex];
+      rightImage.src = selectedImages[modLoop(n + 1, selectedImages.length)];
     }
   }
 

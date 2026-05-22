@@ -56,16 +56,15 @@ button:hover {
     width: auto;
     max-width: 100%;
     z-index: 1;
-    animation: goLeft 1.2s ease-out;
+    animation: initialZoom 0.8s ease-in-out;
 }
 
-@keyframes goLeft{
+@keyframes initialZoom{
   from{
-    width: 0;
+    transform: scale(0.0);
   }
-  
   to{
-    width: 100%;
+    transform: scale(1);
   }
 }
 

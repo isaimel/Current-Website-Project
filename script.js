@@ -9,15 +9,15 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
   
-  function loadImages(givenList){
+  function loadImages(givenList, index, endIndex){
     return new Promise(function(resolve) {
       var imageList = [];
-      givenList.forEach(item => {
-        var imagePath = './' + item + '.jpg';
+      for (let i = index; i < Math.min(endIndex, givenList.length); i++) {
+        var imagePath = './' + givenList[i] + '.jpg';
         const img = new Image();
         img.src = imagePath;
         imageList.push(imagePath);
-      });
+      }
       resolve(imageList);
     });
 
@@ -33,6 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // });
   
   function addScrollFunctionality(scrollContainer, entry){
+    var selectedImages = [];
     var leftDiv = scrollContainer.querySelector(".left_image");
     var leftImage = leftDiv.querySelector(".slides");
 
@@ -46,15 +47,16 @@ document.addEventListener('DOMContentLoaded', () => {
     var rightButton = scrollContainer.querySelector(".slideshow_right");
 
     var centralIndex = 1;
-    leftButton.addEventListener("click", () => plusDivs(-1));
-    rightButton.addEventListener("click", () => plusDivs(1));
 
-    loadImages(entry.slice(0, 3)).then(imageList => {
+    loadImages(entry, 0, 3).then(imageList => {
       selectedImages = imageList;
       showDivs(centralIndex);
-      loadImages(entry.slice(3, entry.length)).then(moreImages => {
+      loadImages(entry, 3, entry.length).then(moreImages => {
         selectedImages = selectedImages.concat(moreImages);
       });
+    }).then(() => {
+      leftButton.addEventListener("click", () => plusDivs(-1));
+      rightButton.addEventListener("click", () => plusDivs(1)); 
     });
     
     function plusDivs(n) {

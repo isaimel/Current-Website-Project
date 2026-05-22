@@ -5,10 +5,18 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.json())
     .then(listsData => {
       const saulList = listsData.saulList;
+      loadImages(saulList);
       const scrollContainer = document.getElementById("portfolio_scroll");
       addScrollFunctionality(scrollContainer, saulList);
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
+  
+  function loadImages(givenList){
+    givenList.forEach(item => {
+      var img = new Image();
+      img.src = './' + item + '.jpg';
+    });
+  }
 
   function addScrollFunctionality(scrollContainer, givenList){
     var leftDiv = scrollContainer.querySelector(".left_image");
@@ -29,14 +37,14 @@ document.addEventListener('DOMContentLoaded', () => {
     showDivs(centralIndex);
 
     function plusDivs(n) {
-      showDivs(centralIndex += n);
-      centralIndex = modLoop(centralIndex, givenList.length);
+      centralIndex = modLoop(centralIndex + n, givenList.length);
+      showDivs(centralIndex);
     }
 
     function showDivs(n) {
-      leftImage.src = './' + givenList[modLoop(n-1, givenList.length)] + '.jpg';
-      centerImage.src = './' + givenList[modLoop(n, givenList.length)] + '.jpg';
-      rightImage.src = './' + givenList[modLoop(n+1, givenList.length)] + '.jpg';
+      leftImage.src = './' + givenList[modLoop(n - 1, givenList.length)] + '.jpg';
+      centerImage.src = './' + givenList[centralIndex] + '.jpg';
+      rightImage.src = './' + givenList[modLoop(n + 1, givenList.length)] + '.jpg';
     }
   }
 

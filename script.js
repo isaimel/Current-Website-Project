@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const queryURL = "https://raw.githubusercontent.com/isaimel/Current-Website-Project/refs/heads/main/lists.json?token=GHSAT0AAAAAAD5HAEFGGLPFEYELXMB6WMKG2QPWWAQ";
-
+  
   fetch(queryURL)
     .then(response => response.json())
     .then(listsData => {
@@ -10,10 +10,6 @@ document.addEventListener('DOMContentLoaded', () => {
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
 
-
-  var scrollContainer = document.getElementById("portfolio_scroll");
-  addScrollFunctionality(scrollContainer, saulList);
-  
   function addScrollFunctionality(scrollContainer, givenList){
     var leftDiv = scrollContainer.querySelector(".left_image");
     var leftImage = document.createElement("img");

@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const json = loadJSON('./lists.json');
-  var saulList = json.saulList;
+  const queryURL = "https://raw.githubusercontent.com/isaimel/Current-Website-Project/refs/heads/main/lists.json?token=GHSAT0AAAAAAD5HAEFHFZJGDVPF2VAUN46E2QPWHYA";
+  const listsData = search(queryURL)
+  var saulList = listsData.saulList;
 
   var scrollContainer = document.getElementById("portfolio_scroll");
   addScrollFunctionality(scrollContainer)
@@ -42,12 +43,21 @@ document.addEventListener('DOMContentLoaded', () => {
     return n;
   } 
 
-  async function loadJSON(filepath) {
-    fetch(filepath)
-    .then(res => res.json())
-    .then(data => {
-        console.log(data);
-        return data;
-    })
-  }
+  function search(queryURL) {
+    fetch(queryURL)
+            .then(function (response) {
+                // response.json() returns a json string,
+                // returning it will convert it 
+                // to a pure JavaScript 
+                // object for the next then's callback
+                return response.json();
+            })
+            .then(function (users) {
+                // users is a JavaScript object here
+                displayUsersAsATable(users);
+            })
+            .catch(function (error) {
+                console.log('Error during fetch: ' + error.message);
+            });
+          }
 });

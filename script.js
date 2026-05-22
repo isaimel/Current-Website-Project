@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function loadImages(givenList){
     var imageList = [];
     givenList.forEach(item => {
-      var imagePath = './' + item + '.jpg';
+      var imagePath = item + '.jpg';
       imageList.push(imagePath);
       console.log(imagePath);
     });

@@ -12,16 +12,14 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => console.log('Error during fetch: ' + error.message));
   
   function loadImages(givenList){
-    imageList = [];
+    var imageList = [];
     givenList.forEach(item => {
-      var img = new Image();
-      img.src = './' + item + '.jpg';
-      imageList.push(img);
+      imageList.push('./' + item + '.jpg');
     });
     return imageList;
   }
 
-  function addScrollFunctionality(scrollContainer, givenList){
+  function addScrollFunctionality(scrollContainer, saulImages){
     var leftDiv = scrollContainer.querySelector(".left_image");
     var leftImage = leftDiv.querySelector(".slides");
 
@@ -35,19 +33,19 @@ document.addEventListener('DOMContentLoaded', () => {
     var rightButton = scrollContainer.querySelector(".slideshow_right");
 
     var centralIndex = 1;
-    showDivs(centralIndex);
     leftButton.addEventListener("click", () => plusDivs(-1));
     rightButton.addEventListener("click", () => plusDivs(1));
+    showDivs(centralIndex);
 
     function plusDivs(n) {
-      centralIndex = modLoop(centralIndex + n, givenList.length);
+      centralIndex = modLoop(centralIndex + n, saulImages.length);
       showDivs(centralIndex);
     }
 
     function showDivs(n) {
-      leftImage.src = imageList[modLoop(n - 1, givenList.length)].src;
-      centerImage.src = imageList[centralIndex].src;
-      rightImage.src = imageList[modLoop(n + 1, givenList.length)].src;
+      leftImage.src = saulImages[modLoop(n - 1, saulImages.length)];
+      centerImage.src = saulImages[centralIndex];
+      rightImage.src = saulImages[modLoop(n + 1, saulImages.length)];
     }
   }
 

@@ -30,6 +30,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function plusDivs(n) {
       showDivs(centralIndex += n);
+      centralIndex = modLoop(centralIndex, givenList.length);
     }
 
     function showDivs(n) {
@@ -40,8 +41,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function modLoop(n, cap){
-    if (n >= cap) {return 0}
-    if (n < 0) {return cap - 1}
+    if (n >= cap) {
+      return 0
+    }
+    if (n < 0) {
+      return cap - 1
+    }
     return n;
   } 
 });

@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const queryURL = "https://raw.githubusercontent.com/isaimel/Current-Website-Project/refs/heads/main/lists.json?token=GHSAT0AAAAAAD5HAEFGGLPFEYELXMB6WMKG2QPWWAQ";
+  const queryURL = 'https://raw.githubusercontent.com/isaimel/Current-Website-Project/refs/heads/main/lists.json';
   
   fetch(queryURL)
     .then(response => response.json())
@@ -12,16 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function addScrollFunctionality(scrollContainer, givenList){
     var leftDiv = scrollContainer.querySelector(".left_image");
-    var leftImage = document.createElement("img");
-    leftDiv.appendChild(leftImage);
+    var leftImage = leftDiv.querySelector(".slides");
 
     var centerDiv = scrollContainer.querySelector(".center_image");
-    var centerImage = document.createElement("img");
-    centerDiv.appendChild(centerImage);
+    var centerImage = centerDiv.querySelector(".slides");
 
     var rightDiv = scrollContainer.querySelector(".right_image");
-    var rightImage = document.createElement("img");
-    rightDiv.appendChild(rightImage);
+    var rightImage = rightDiv.querySelector(".slides");
 
     var leftButton = scrollContainer.querySelector(".slideshow_left");
     var rightButton = scrollContainer.querySelector(".slideshow_right");

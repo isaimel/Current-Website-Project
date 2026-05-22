@@ -5,15 +5,15 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.json())
     .then(listsData => {
       const scrollContainer = document.getElementById("portfolio_scroll");
-      addScrollFunctionality(scrollContainer, listsData.saulList);
+      addScrollFunctionality(scrollContainer, listsData.merchandiseList, "./assets/merch/");
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
   
-  function loadImages(givenList, index, endIndex){
+  function loadImages(givenList, folderPath, index, endIndex){
     return new Promise(function(resolve) {
       var imageList = [];
       for (let i = index; i < Math.min(endIndex, givenList.length); i++) {
-        var imagePath = './' + givenList[i] + '.jpg';
+        var imagePath = folderPath + givenList[i];
         const img = new Image();
         img.src = imagePath;
         imageList.push(imagePath);
@@ -22,17 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
   }
-  //  return new Promise(function(resolve, reject) {
-  //   let script = document.createElement('script');
-  //   script.src = src;
-
-  //   script.onload = () => resolve(script);
-  //   script.onerror = () => reject(new Error(`Script load error for ${src}`));
-
-  //   document.head.append(script);
-  // });
-  
-  function addScrollFunctionality(scrollContainer, entry){
+ 
+  function addScrollFunctionality(scrollContainer, entry, folderPath){
     var selectedImages = [];
     var leftDiv = scrollContainer.querySelector(".left_image");
     var leftImage = leftDiv.querySelector(".slides");
@@ -48,10 +39,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var centralIndex = 1;
 
-    loadImages(entry, 0, 3).then(imageList => {
+    loadImages(entry, folderPath, 0, 3).then(imageList => {
       selectedImages = imageList;
       showDivs(centralIndex);
-      loadImages(entry, 3, entry.length).then(moreImages => {
+      loadImages(entry, folderPath, 3, entry.length).then(moreImages => {
         selectedImages = selectedImages.concat(moreImages);
       });
     }).then(() => {
@@ -61,13 +52,13 @@ document.addEventListener('DOMContentLoaded', () => {
     
     function plusDivs(n) {
       centralIndex = modLoop(centralIndex + n, selectedImages.length);
-      showDivs(centralIndex);
+      showDivs();
     }
 
-    function showDivs(n) {
-      leftImage.src = selectedImages[modLoop(n - 1, selectedImages.length)];
+    function showDivs() {
+      leftImage.src = selectedImages[modLoop(centralIndex - 1, selectedImages.length)];
       centerImage.src = selectedImages[centralIndex];
-      rightImage.src = selectedImages[modLoop(n + 1, selectedImages.length)];
+      rightImage.src = selectedImages[modLoop(centralIndex + 1, selectedImages.length)];
     }
   }
 

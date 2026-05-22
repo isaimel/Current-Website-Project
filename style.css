@@ -5,8 +5,14 @@ button{
     border: none;
     cursor: pointer;
     padding: .2rem .4rem;
-    opacity: 0.8;
+    opacity: 0.4;
+    background-color: black;
+    color: white;
+    font-size: 1.5rem;
+    justify-content: center;
+    align-items: center;
 }
+
 button:hover {
     opacity: 1;
 }
@@ -30,6 +36,7 @@ button:hover {
     justify-content: center;
     grid-template-rows: 24rem;
     grid-template-columns: 55% 55% 55%;
+    min-width: 100%;
     gap: 1rem;
     overflow-x: hidden;
     scrollbar-width: none;
@@ -49,5 +56,5 @@ button:hover {
     width: auto;
     max-width: 100%;
     z-index: 1;
-    animation: fade 0.5s;
+    animation: 0.5s;
 }

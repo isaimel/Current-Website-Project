@@ -2,8 +2,8 @@
     "tabs": {
         "merchandise": ["aranasWhite.png", "allisonTP.png", "suxSkewWhite.png", "BnCWhite.png", "maddyTP.png", "suxCenterWhite.png"],
         "graphics": ["img2.png", "img3.png", "img4.png", "img5.png", "img6.png", "img7.png", "img8.png"],
-        "saul": ["BetterCallSaul 1", "BetterCallSaul 2", "BetterCallSaul 3", "BetterCallSaul 4", "BetterCallSaul 5", "BetterCallSaul 6", "BetterCallSaul 7", "BetterCallSaul 8"]
+        "saul": ["BetterCallSaul 1.png", "BetterCallSaul 2.png", "BetterCallSaul 3.png", "BetterCallSaul 4.png", "BetterCallSaul 5.png", "BetterCallSaul 6.png", "BetterCallSaul 7.png", "BetterCallSaul 8.png"]
     },
     "merchandiseList": ["aranasWhite.png", "allisonTP.png", "suxSkewWhite.png", "BnCWhite.png", "maddyTP.png", "suxCenterWhite.png"],
-    "saulList": ["BetterCallSaul 1", "BetterCallSaul 2", "BetterCallSaul 3", "BetterCallSaul 4", "BetterCallSaul 5", "BetterCallSaul 6", "BetterCallSaul 7", "BetterCallSaul 8"] 
+    "saulList": ["BetterCallSaul 1.png", "BetterCallSaul 2.png", "BetterCallSaul 3.png", "BetterCallSaul 4.png", "BetterCallSaul 5.png", "BetterCallSaul 6.png", "BetterCallSaul 7.png", "BetterCallSaul 8.png"] 
 }

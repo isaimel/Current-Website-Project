@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       resolve(imageList);
     });
-
   }
  
   function addScrollFunctionality(scrollContainer, entry, folderPath){

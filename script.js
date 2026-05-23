@@ -5,10 +5,31 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(response => response.json())
     .then(listsData => {
       const scrollContainer = document.getElementById("portfolio_scroll");
-      addScrollFunctionality(scrollContainer, listsData.merchandiseList, "./assets/merch/");
+      const tabContainer = document.getElementById("tab_container");
+      tabFunctionality(tabContainer, listsData.tabs);
+      // addScrollFunctionality(scrollContainer, listsData.merchandiseList, "./assets/merch/");
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
   
+
+
+  function tabFunctionality(tab_container, tab_data){
+    var dictionaryKeys = Object.keys(tab_data);
+    for (let i = 0; i < dictionaryKeys.length; i++) {
+      var newDiv = document.createElement("div");
+      newDiv.innerHTML = dictionaryKeys[i].replace(/^./, char => char.toUpperCase());
+      tab_container.appendChild(newDiv);
+    }
+  }
+
+
+
+
+
+
+
+
+
   function loadImages(givenList, folderPath, index, endIndex){
     return new Promise(function(resolve) {
       var imageList = [];

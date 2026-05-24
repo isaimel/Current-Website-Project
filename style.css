@@ -58,7 +58,7 @@ button:hover {
     z-index: 1;
     animation: initialZoom 0.8s ease-in-out;
 }
-#tab_container {
+.tab_container {
     display: flex;
     justify-content: left;
     align-items: center;
@@ -68,7 +68,7 @@ button:hover {
     height: 4rem;
     font-size: 1.4rem;
   }
-#tab_container div{
+.tab_container div{
   display: flex;
   justify-content: center;
   align-items: center;

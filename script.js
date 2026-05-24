@@ -4,83 +4,102 @@ document.addEventListener('DOMContentLoaded', () => {
   fetch(queryURL)
     .then(response => response.json())
     .then(listsData => {
-      const scrollContainer = document.getElementById("portfolio_scroll");
-      const tabContainer = document.getElementById("tab_container");
-      tabFunctionality(tabContainer, listsData.tabs);
-      // addScrollFunctionality(scrollContainer, listsData.merchandiseList, "./assets/merch/");
+      const first_page_gallery = document.getElementById("first_page_gallery");
+      galleryFunctionality(first_page_gallery, listsData.tabs);
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
   
+  function galleryFunctionality(gallery, tab_data){
+    var leftImage = gallery.querySelector(".left_image").querySelector(".slides");
+    var centerImage = gallery.querySelector(".center_image").querySelector(".slides");
+    var rightImage = gallery.querySelector(".right_image").querySelector(".slides");
+    var leftButton = gallery.querySelector(".slideshow_left");
+    var rightButton = gallery.querySelector(".slideshow_right");
+    var tab_container = gallery.querySelector(".tab_container");
 
-
-  function tabFunctionality(tab_container, tab_data){
+    var centralImageIndex = 1;
+    var pathDictionary = createPathDictionary(tab_data);
     var dictionaryKeys = Object.keys(tab_data);
-    for (let i = 0; i < dictionaryKeys.length; i++) {
+    var tabList = {};
+    
+    for (const key in tab_data) {
       var newDiv = document.createElement("div");
-      newDiv.innerHTML = dictionaryKeys[i].replace(/^./, char => char.toUpperCase());
+      tabList[key] = newDiv;
+      newDiv.innerHTML = key.replace(/^./, char => char.toUpperCase());
+      newDiv.style.backgroundColor = "white";
+      newDiv.style.color = "black";
       tab_container.appendChild(newDiv);
+      newDiv.addEventListener("mouseover", () => selectTab(key));
     }
-  }
+    var currentTabName = dictionaryKeys[0];
+    selectTab(currentTabName);
+    leftButton.addEventListener("click", () => plusDivs(-1));
+    rightButton.addEventListener("click", () => plusDivs(1)); 
 
-
-
-
-
-
-
-
-
-  function loadImages(givenList, folderPath, index, endIndex){
-    return new Promise(function(resolve) {
-      var imageList = [];
-      for (let i = index; i < Math.min(endIndex, givenList.length); i++) {
-        var imagePath = folderPath + givenList[i];
-        const img = new Image();
-        img.src = imagePath;
-        imageList.push(imagePath);
+    function selectTab(index) {
+      tabList[currentTabName].style.backgroundColor = "white";
+      tabList[currentTabName].style.color = "black";
+      currentTabName = index;
+      tabList[currentTabName].style.backgroundColor = "black";
+      tabList[currentTabName].style.color = "white";
+      showDivs();
+    }
+    
+    function createPathDictionary(tab_data){
+      var pathDictionary = {};
+      for (const key in tab_data) {
+        pathDictionary[key] = tab_data[key].map(item => "./assets/" + key + "/" + item);
       }
-      resolve(imageList);
-    });
-  }
- 
-  function addScrollFunctionality(scrollContainer, entry, folderPath){
-    var selectedImages = [];
-    var leftDiv = scrollContainer.querySelector(".left_image");
-    var leftImage = leftDiv.querySelector(".slides");
-
-    var centerDiv = scrollContainer.querySelector(".center_image");
-    var centerImage = centerDiv.querySelector(".slides");
-
-    var rightDiv = scrollContainer.querySelector(".right_image");
-    var rightImage = rightDiv.querySelector(".slides");
-
-    var leftButton = scrollContainer.querySelector(".slideshow_left");
-    var rightButton = scrollContainer.querySelector(".slideshow_right");
-
-    var centralIndex = 1;
-
-    loadImages(entry, folderPath, 0, 3).then(imageList => {
-      selectedImages = imageList;
-      showDivs(centralIndex);
-      loadImages(entry, folderPath, 3, entry.length).then(moreImages => {
-        selectedImages = selectedImages.concat(moreImages);
-      });
-    }).then(() => {
-      leftButton.addEventListener("click", () => plusDivs(-1));
-      rightButton.addEventListener("click", () => plusDivs(1)); 
-    });
+      return pathDictionary;
+    }
+    
+    function showDivs() {
+      leftImage.src = pathDictionary[currentTabName][modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
+      centerImage.src = pathDictionary[currentTabName][centralImageIndex];
+      rightImage.src = pathDictionary[currentTabName][modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)];
+    }
     
     function plusDivs(n) {
-      centralIndex = modLoop(centralIndex + n, selectedImages.length);
+      centralIndex = modLoop(centralImageIndex + n, pathDictionary[currentTabName].length);
       showDivs();
     }
 
-    function showDivs() {
-      leftImage.src = selectedImages[modLoop(centralIndex - 1, selectedImages.length)];
-      centerImage.src = selectedImages[centralIndex];
-      rightImage.src = selectedImages[modLoop(centralIndex + 1, selectedImages.length)];
-    }
+
+
+
+
+    // function loadSelectedList(){
+    //   loadImages(entry, 0, 3).then(imageList => {
+    //     selectedImages = imageList;
+    //     showDivs(centralIndex);
+    //     loadImages(entry, 3, pathDictionary[currentTabName].length).then(moreImages => {
+    //       selectedImages = selectedImages.concat(moreImages);
+    //     });
+    //   }).then(() => {
+
+    //   });
+      
+
+
+
+    // }
+
   }
+
+  // function loadImages(givenList, index, endIndex){
+  //   return new Promise(function(resolve) {
+  //     var imageList = [];
+  //     for (let i = index; i < Math.min(endIndex, givenList.length); i++) {
+  //       var imagePath = folderPath + givenList[i];
+  //       const img = new Image();
+  //       img.src = imagePath;
+  //       imageList.push(imagePath);
+  //     }
+  //     resolve(imageList);
+  //   });
+  // }
+ 
+  
 
   function modLoop(n, cap){
     if (n >= cap) {

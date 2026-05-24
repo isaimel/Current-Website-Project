@@ -70,6 +70,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
+  }
+
 
 
     // function loadSelectedList(){
@@ -87,8 +89,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // }
-
-  }
 
   // function loadImages(givenList, index, endIndex){
   //   return new Promise(function(resolve) {

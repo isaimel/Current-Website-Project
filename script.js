@@ -52,6 +52,10 @@ document.addEventListener('DOMContentLoaded', () => {
       var pathDictionary = {};
       for (const key in tab_data) {
         pathDictionary[key] = tab_data[key].map(item => "./assets/" + key + "/" + item);
+        for (const imagePath of pathDictionary[key]) {
+          const img = new Image();
+          img.src = imagePath;
+        }
       }
       return pathDictionary;
     }

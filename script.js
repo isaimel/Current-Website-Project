@@ -40,6 +40,9 @@ document.addEventListener('DOMContentLoaded', () => {
       tabList[currentTabName].style.backgroundColor = "white";
       tabList[currentTabName].style.color = "black";
       currentTabName = index;
+      if (index != currentTabName) {
+        centralImageIndex = 0;
+      }
       tabList[currentTabName].style.backgroundColor = "black";
       tabList[currentTabName].style.color = "white";
       showDivs();
@@ -60,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function plusDivs(n) {
-      centralIndex = modLoop(centralImageIndex + n, pathDictionary[currentTabName].length);
+      console.log(centralImageIndex);
+      centralImageIndex = modLoop(centralImageIndex + n, pathDictionary[currentTabName].length);
       showDivs();
     }
 

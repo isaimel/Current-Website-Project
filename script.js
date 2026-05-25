@@ -26,7 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
     let menuEnterTimer;
   
     initializeGallery();
-    loadRemainingImages();
 
     async function initializeGallery(){
       await loadTabs();

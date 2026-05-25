@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', () => {
       return tabList;
     }
 
-    function loadImage(tabName, imageIndex, parentPath = './assets/') {
+    function loadImage(tabName, imageIndex, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
       var imageName = tab_data[tabName][imageIndex];
       var imagePath = `${parentPath}${tabName}/${imageName}`;
       var img = new Image();

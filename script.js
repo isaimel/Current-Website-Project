@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const queryURL = 'https://raw.githubusercontent.com/isaimel/Current-Website-Project/refs/heads/main/lists.json';
+  const queryURL = 'https://isaimel.github.io/Current-Website-Project/lists.json';
   
   fetch(queryURL)
     .then(response => response.json())
@@ -18,49 +18,110 @@ document.addEventListener('DOMContentLoaded', () => {
     var tab_container = gallery.querySelector(".tab_container");
 
     var centralImageIndex = 1;
-    var pathDictionary = createPathDictionary(tab_data);
-    var dictionaryKeys = Object.keys(tab_data);
     var tabList = {};
+    var pathDictionary = {};
+    var currentTabName = Object.keys(tab_data)[0];
     
-    for (const key in tab_data) {
-      var newDiv = document.createElement("div");
-      tabList[key] = newDiv;
-      newDiv.innerHTML = key.replace(/^./, char => char.toUpperCase());
-      newDiv.style.backgroundColor = "white";
-      newDiv.style.color = "black";
-      tab_container.appendChild(newDiv);
-      newDiv.addEventListener("mouseover", () => selectTab(key));
-    }
-    var currentTabName = dictionaryKeys[0];
-    selectTab(currentTabName);
-    leftButton.addEventListener("click", () => plusDivs(-1));
-    rightButton.addEventListener("click", () => plusDivs(1)); 
+    let showDelay = 20;
+    let menuEnterTimer;
+  
+    initializeGallery();
+    loadRemainingImages();
 
-    function selectTab(index) {
+    async function initializeGallery(){
+      await loadTabs();
+      addTabFunctionality();
+      pathDictionary[currentTabName] = await loadImages(currentTabName, 0, 3);
+      selectTab(currentTabName);
+      for (const tabName in tab_data) {
+        if (tabName == currentTabName) continue;
+        pathDictionary[tabName] = await loadImages(tabName, 0, 3);
+      } 
+      await addButtonFunctionality();
+      loadRemainingImages();
+    }
+
+    async function loadRemainingImages() {
+      for (const tabName in tab_data) {
+        const remaining = await loadImages(tabName, 3, tab_data[tabName].length);
+        pathDictionary[tabName] = pathDictionary[tabName].concat(remaining);
+      }
+    }
+
+    function loadImages(tabName, startIndex, endIndex){
+      var tabList = [];
+      for (let i = startIndex; i < endIndex; i++) {
+        tabList.push(loadImage(tabName, i));
+      }
+      return tabList;
+    }
+
+    function loadImage(tabName, imageIndex, parentPath = './assets/') {
+      var imageName = tab_data[tabName][imageIndex];
+      var imagePath = `${parentPath}${tabName}/${imageName}`;
+      var img = new Image();
+      img.src = imagePath;
+      return imagePath;
+    }
+
+    function loadTabs(){
+      for (const key in tab_data) {
+        var newDiv = document.createElement("div");
+        tabList[key] = newDiv;
+        newDiv.innerHTML = key.replace(/^./, char => char.toUpperCase());
+        newDiv.style.backgroundColor = "white";
+        newDiv.style.color = "black";
+        tab_container.appendChild(newDiv);
+      }
+    }
+
+    function addTabFunctionality(){
+      for (const key in tabList) {
+        tabList[key].addEventListener("mouseover", () => swapTab(key));
+        tabList[key].addEventListener('mouseleave', function() {
+          clearTimeout(menuEnterTimer);
+        });
+      }
+    }
+
+    function addButtonFunctionality(){
+      leftButton.addEventListener("click", () => plusDivs(-1));
+      rightButton.addEventListener("click", () => plusDivs(1));       
+    }
+    
+    function selectTab(tabName){
       tabList[currentTabName].style.backgroundColor = "white";
       tabList[currentTabName].style.color = "black";
-      if (index != currentTabName) {
-        centralImageIndex = 0;
-      }
-      currentTabName = index;
 
+      currentTabName = tabName;
       tabList[currentTabName].style.backgroundColor = "black";
       tabList[currentTabName].style.color = "white";
       showDivs();
     }
-    
-    function createPathDictionary(tab_data){
-      var pathDictionary = {};
-      for (const key in tab_data) {
-        pathDictionary[key] = tab_data[key].map(item => "./assets/" + key + "/" + item);
-        for (const imagePath of pathDictionary[key]) {
-          const img = new Image();
-          img.src = imagePath;
-        }
+
+    function swapTab(tabName) {
+      if (tabName == currentTabName) {
+        return;
       }
-      return pathDictionary;
+      centralImageIndex = 1;
+
+      menuEnterTimer = setTimeout(function() {
+        selectTab(tabName);
+			}, showDelay);
     }
-    
+
+    function createPathList(tabName, startIndex, endIndex){
+        var pathList = [];
+        for (let i = startIndex; i < endIndex; i++) {
+          const imageName = tab_data[tabName][i];
+          const imagePath = `./assets/${tabName}/${imageName}`;
+          const img = new Image();
+        img.src = imagePath;
+        pathList.push(imagePath);
+      }
+      return pathList;
+    }
+
     function showDivs() {
       leftImage.src = pathDictionary[currentTabName][modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
       centerImage.src = pathDictionary[currentTabName][centralImageIndex];
@@ -68,44 +129,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function plusDivs(n) {
-      console.log(centralImageIndex);
       centralImageIndex = modLoop(centralImageIndex + n, pathDictionary[currentTabName].length);
       showDivs();
     }
   }
-
-
-
-    // function loadSelectedList(){
-    //   loadImages(entry, 0, 3).then(imageList => {
-    //     selectedImages = imageList;
-    //     showDivs(centralIndex);
-    //     loadImages(entry, 3, pathDictionary[currentTabName].length).then(moreImages => {
-    //       selectedImages = selectedImages.concat(moreImages);
-    //     });
-    //   }).then(() => {
-
-    //   });
-      
-
-
-
-    // }
-
-  // function loadImages(givenList, index, endIndex){
-  //   return new Promise(function(resolve) {
-  //     var imageList = [];
-  //     for (let i = index; i < Math.min(endIndex, givenList.length); i++) {
-  //       var imagePath = folderPath + givenList[i];
-  //       const img = new Image();
-  //       img.src = imagePath;
-  //       imageList.push(imagePath);
-  //     }
-  //     resolve(imageList);
-  //   });
-  // }
- 
-  
 
   function modLoop(n, cap){
     if (n >= cap) {

@@ -115,10 +115,10 @@ document.addEventListener('DOMContentLoaded', () => {
           const imageName = tab_data[tabName][i];
           const imagePath = `./assets/${tabName}/${imageName}`;
           const img = new Image();
-        img.src = imagePath;
-        pathList.push(imagePath);
-      }
-      return pathList;
+          img.src = imagePath;
+          pathList.push(imagePath);
+        }
+        return pathList;
     }
 
     function showDivs() {

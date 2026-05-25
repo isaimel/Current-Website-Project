@@ -21,17 +21,14 @@ document.addEventListener('DOMContentLoaded', () => {
     var tabList = {};
     var pathDictionary = {};
     var currentTabName = Object.keys(tab_data)[0];
-    
-    let showDelay = 20;
-    let menuEnterTimer;
-  
+
     initializeGallery();
 
     async function initializeGallery(){
       await loadTabs();
       addTabFunctionality();
       pathDictionary[currentTabName] = await loadImages(currentTabName, 0, 3);
-      selectTab(currentTabName);
+      await selectTab(currentTabName);
       for (const tabName in tab_data) {
         if (tabName == currentTabName) continue;
         pathDictionary[tabName] = await loadImages(tabName, 0, 3);
@@ -56,9 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadImage(tabName, imageIndex, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
+      var img = new Image();
       var imageName = tab_data[tabName][imageIndex];
       var imagePath = `${parentPath}${tabName}/${imageName}`;
-      var img = new Image();
       img.src = imagePath;
       return imagePath;
     }
@@ -77,9 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
     function addTabFunctionality(){
       for (const key in tabList) {
         tabList[key].addEventListener("mouseover", () => swapTab(key));
-        tabList[key].addEventListener('mouseleave', function() {
-          clearTimeout(menuEnterTimer);
-        });
       }
     }
 
@@ -103,16 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
       }
       centralImageIndex = 1;
-
-      menuEnterTimer = setTimeout(function() {
-        selectTab(tabName);
-			}, showDelay);
+      selectTab(tabName);
     }
 
     function showDivs() {
-      leftImage.src = pathDictionary[currentTabName][modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
-      centerImage.src = pathDictionary[currentTabName][centralImageIndex];
-      rightImage.src = pathDictionary[currentTabName][modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)];
+      var pathList = pathDictionary[currentTabName];
+      leftImage.src = pathList[modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
+      centerImage.src = pathList[centralImageIndex];
+      rightImage.src = pathList[modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)];
     }
     
     function plusDivs(n) {

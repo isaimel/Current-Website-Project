@@ -67,7 +67,7 @@ document.addEventListener('DOMContentLoaded', () => {
       for (const key in tab_data) {
         var newDiv = document.createElement("div");
         tabList[key] = newDiv;
-        newDiv.innerHTML = key.replace(/^./, char => char.toUpperCase());
+        newDiv.textContent = key.replace(/^./, char => char.toUpperCase());
         newDiv.style.backgroundColor = "white";
         newDiv.style.color = "black";
         tab_container.appendChild(newDiv);

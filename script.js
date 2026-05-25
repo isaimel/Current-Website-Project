@@ -109,18 +109,6 @@ document.addEventListener('DOMContentLoaded', () => {
 			}, showDelay);
     }
 
-    function createPathList(tabName, startIndex, endIndex){
-        var pathList = [];
-        for (let i = startIndex; i < endIndex; i++) {
-          const imageName = tab_data[tabName][i];
-          const imagePath = `./assets/${tabName}/${imageName}`;
-          const img = new Image();
-          img.src = imagePath;
-          pathList.push(imagePath);
-        }
-        return pathList;
-    }
-
     function showDivs() {
       leftImage.src = pathDictionary[currentTabName][modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
       centerImage.src = pathDictionary[currentTabName][centralImageIndex];

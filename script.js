@@ -3,24 +3,28 @@ document.addEventListener('DOMContentLoaded', () => {
   
   fetch(queryURL)
     .then(response => response.json())
-    .then(listsData => {
+    .then(jsonData => {
       const first_page_gallery = document.getElementById("first_page_gallery");
-      galleryFunctionality(first_page_gallery, listsData.tabs);
+      galleryFunctionality(first_page_gallery, jsonData);
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
   
-  function galleryFunctionality(gallery, tab_data){
+  function galleryFunctionality(gallery, jsonData){
+    var tabData = jsonData.tabs;
+    var descriptionsData = jsonData.descriptions;
+
     var leftImage = gallery.querySelector(".left_image").querySelector(".slides");
     var centerImage = gallery.querySelector(".center_image").querySelector(".slides");
     var rightImage = gallery.querySelector(".right_image").querySelector(".slides");
     var leftButton = gallery.querySelector(".slideshow_left");
     var rightButton = gallery.querySelector(".slideshow_right");
-    var tab_container = gallery.querySelector(".tab_container");
+    var tabContainer = gallery.querySelector(".tab_container");
+    var itemDescription = gallery.querySelector(".item_description");
 
     var centralImageIndex = 1;
     var tabList = {};
     var pathDictionary = {};
-    var currentTabName = Object.keys(tab_data)[0];
+    var currentTabName = Object.keys(tabData)[0];
 
     initializeGallery();
 
@@ -29,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
       addTabFunctionality();
       pathDictionary[currentTabName] = await loadImages(currentTabName, 0, 3);
       await selectTab(currentTabName);
-      for (const tabName in tab_data) {
+      for (const tabName in tabData) {
         if (tabName == currentTabName) continue;
         pathDictionary[tabName] = await loadImages(tabName, 0, 3);
       } 
@@ -38,8 +42,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function loadRemainingImages() {
-      for (const tabName in tab_data) {
-        const remaining = await loadImages(tabName, 3, tab_data[tabName].length);
+      for (const tabName in tabData) {
+        const remaining = await loadImages(tabName, 3, tabData[tabName].length);
         pathDictionary[tabName] = pathDictionary[tabName].concat(remaining);
       }
     }
@@ -54,20 +58,20 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function loadImage(tabName, imageIndex, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
       var img = new Image();
-      var imageName = tab_data[tabName][imageIndex];
+      var imageName = tabData[tabName][imageIndex];
       var imagePath = `${parentPath}${tabName}/${imageName}`;
       img.src = imagePath;
       return imagePath;
     }
 
     function loadTabs(){
-      for (const key in tab_data) {
+      for (const key in tabData) {
         var newDiv = document.createElement("div");
         tabList[key] = newDiv;
         newDiv.textContent = key.replace(/^./, char => char.toUpperCase());
         newDiv.style.backgroundColor = "white";
         newDiv.style.color = "black";
-        tab_container.appendChild(newDiv);
+        tabContainer.appendChild(newDiv);
       }
     }
 

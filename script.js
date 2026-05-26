@@ -106,9 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showDivs() {
       var pathList = pathDictionary[currentTabName];
+      var imageName = tabData[currentTabName][centralImageIndex];
+      console.log(imageName);
       leftImage.src = pathList[modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
       centerImage.src = pathList[centralImageIndex];
       rightImage.src = pathList[modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)];
+      // itemDescription.textContent = descriptionsData[currentTabName]?.[imageName] ?? "";
+      console.debug(descriptionsData);
     }
     
     function plusDivs(n) {

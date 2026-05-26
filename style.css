@@ -21,7 +21,6 @@ button{
     display: flex;
     align-items: center;
     color: var(--color-1);
-    height: 12rem;
     width: 100%;
     padding: .4rem .8rem;
     box-sizing: border-box;
@@ -142,6 +141,9 @@ button:hover {
   .slideshow_container {
     grid-template-rows: 24rem 6rem;
   }
+  .tab_container {   
+    height: 3.5rem;
+  }
 }
 
 @media (max-width: 650px) {
@@ -153,5 +155,8 @@ button:hover {
   }
   .slideshow_container {
     grid-template-rows: 20rem 6rem;
+  }
+  .tab_container {   
+    height: 3.0rem;
   }
 }

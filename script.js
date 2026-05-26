@@ -115,10 +115,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function showDivs() {
       var pathList = pathDictionary[currentTabName];
       var imageName = tabData[currentTabName][centralImageIndex];
+      
       leftImage.src = pathList[modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
       centerImage.src = pathList[centralImageIndex];
       rightImage.src = pathList[modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)];
+      
       itemDescription.textContent = descriptionsData?.[currentTabName]?.[imageName] ?? "";
+      centerImage.alt = itemDescription.textContent;
       console.debug(itemDescription.textContent);
     }
     

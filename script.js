@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       await Promise.all(promises);
 
-      loadRemainingImages();
+      await loadRemainingImages();
       addButtonFunctionality();
     }
 
@@ -51,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         promises.push(loadImages(tabName, 3, tabData[tabName].length)
           .then(imgs => pathDictionary[tabName] = pathDictionary[tabName].concat(imgs)));
       }
-      await Promise.all(promises);
+      return Promise.all(promises);
     }
 
     function loadImages(tabName, startIndex, endIndex){

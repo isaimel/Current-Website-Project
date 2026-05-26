@@ -33,19 +33,25 @@ document.addEventListener('DOMContentLoaded', () => {
       addTabFunctionality();
       pathDictionary[currentTabName] = await loadImages(currentTabName, 0, 3);
       selectTab(currentTabName);
+
+      var promises = [];
       for (const tabName in tabData) {
         if (tabName == currentTabName) continue;
-        pathDictionary[tabName] = await loadImages(tabName, 0, 3);
-      } 
+        promises.push(loadImages(tabName, 0, 3).then(imgs => pathDictionary[tabName] = imgs));
+      }
+      await Promise.all(promises);
+
       loadRemainingImages();
       addButtonFunctionality();
     }
 
     async function loadRemainingImages() {
+      var promises = [];
       for (const tabName in tabData) {
-        const remaining = await loadImages(tabName, 3, tabData[tabName].length);
-        pathDictionary[tabName] = pathDictionary[tabName].concat(remaining);
+        promises.push(loadImages(tabName, 3, tabData[tabName].length)
+          .then(imgs => pathDictionary[tabName] = pathDictionary[tabName].concat(imgs)));
       }
+      await Promise.all(promises);
     }
 
     function loadImages(tabName, startIndex, endIndex){

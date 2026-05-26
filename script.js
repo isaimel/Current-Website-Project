@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var leftButton = gallery.querySelector(".slideshow_left");
     var rightButton = gallery.querySelector(".slideshow_right");
     var tabContainer = gallery.querySelector(".tab_container");
-    var itemDescription = gallery.querySelector(".item_description");
+    var itemDescription = gallery.querySelector(".item_description p");
 
     var centralImageIndex = 1;
     var tabList = {};

@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         img.src = imagePath;
         img.alt = descriptionsData[tabName][imageName];
         img.onload = () => resolve(img);
+        img.onerror = () => resolve(img);
       });
     }
 

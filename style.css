@@ -54,7 +54,7 @@ button:hover {
     justify-self: center;
     align-items: center;
     justify-content: center;
-    grid-template-rows: 24rem;
+    grid-template-rows: 24rem 4rem;
     grid-template-columns: 45% 45% 45%;
     min-width: 100%;
     gap: 1rem;
@@ -96,6 +96,12 @@ button:hover {
   font-size: 1.4rem;
   height: 100%;
   user-select: none;
+}
+.item_description{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
 }
 
 @keyframes initialZoom{

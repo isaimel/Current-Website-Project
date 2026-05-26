@@ -1,9 +1,9 @@
 {   
     "tabs": {
-        "merchandise": ["aranasWhite.png", "allisonTP.png", "suxSkewWhite.png", "BnCWhite.png", "maddyTP.png", "suxCenterWhite.png"],
-        "graphics": ["fancyJE.png","img1.png", "img2.png", "img3.png", "img4.png", "img5.png", "img6.png", "img7.png"],
-        "advertisements": ["sillyCPAPoster.png", "img1.png", "img2.png", "img3.png", "img4.png", "img5.png", "img6.png", "img7.png", "img8.png", "img9.png"],
-        "traditional": ["img1.png", "img2.png", "img3.png", "img4.png", "img5.png", "img6.png", "img7.png", "img8.png", "img9.png", "img10.png", "img11.png", "img12.png", "img13.png", "img14.png", "img15.png", "img16.png", "img17.png", "img18.png", "img19.png", "img20.png", "img21.png", "img22.png"],
-        "miscellaneous": ["img1.jpg", "img2.gif", "img3.png", "img4.png", "img5.jpg", "img6.gif"]
-}
+        "merchandise": ["bread_and_circuses_white.png", "je_sux_center_white.png", "je_sux_skew_white.png", "las_aranas_white.png", "tulip_allison.png", "tulip_maddy.png"],
+        "graphics": ["drum_set.png", "electric_guitar.png", "fancy_JE_text.png", "keyboard.png", "microphone.png", "saxophone.png", "trumpet.png", "violin.png"],
+        "advertisements": ["accent_sun.png", "apple_picking.png", "cpa_poster.png", "late_night_nuggets.png", "next_to_normal_thin.png", "next_to_normal_wide.png", "spider_ball_swing.png", "spider_cider.png", "tea_for_tuesday.png", "tulip_protection.png"],
+        "traditional": ["blue_ice_cream.png", "blue_jay.png", "cat_comission.png", "chicken_rice.png", "coffee_cup.png", "coky_bird.png", "flan.png", "koi_fish.png", "large_leaf_flower.png", "maine_ocean.png", "random_breakfast.png", "rats_and_boba.png", "red_panda.png", "salmon_flower.png", "salvadoran_sweets.png", "shiba_gift.png", "snoopy_comission.png", "sunflower.png", "totoro_gift.png", "willoughbys_heart.png", "yellow_flowers.png"],
+        "miscellaneous": ["abstract_cider.png", "couple_comission.png", "desk_study.jpg", "digital_final.gif", "graphics_final.gif", "moth_practice.png"]
+    }
 }

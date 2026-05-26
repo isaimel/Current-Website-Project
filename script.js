@@ -49,22 +49,22 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadImages(tabName, startIndex, endIndex){
-      return new Promise ((resolve) => {
-        var tabList = [];
-        for (let i = startIndex; i < endIndex; i++) {
-          tabList.push(loadImage(tabName, i));
-        }
-        resolve(tabList);
-      });
+      var tabList = [];
+      for (let i = startIndex; i < endIndex; i++) {
+        tabList.push(loadImage(tabName, i));
+      }
+      return Promise.all(tabList);
     }
 
     function loadImage(tabName, imageIndex, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
-      var img = new Image();
-      var imageName = tabData[tabName][imageIndex];
-      var imagePath = `${parentPath}${tabName}/${imageName}`;
-      img.src = imagePath;
-      img.alt = descriptionsData[tabName][imageName];
-      return img;
+      return new Promise ((resolve) => {
+        var img = new Image();
+        var imageName = tabData[tabName][imageIndex];
+        var imagePath = `${parentPath}${tabName}/${imageName}`;
+        img.src = imagePath;
+        img.alt = descriptionsData[tabName][imageName];
+        img.onload = () => resolve(img);
+      });
     }
 
     function loadTabs(){

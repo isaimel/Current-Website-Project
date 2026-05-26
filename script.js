@@ -32,28 +32,33 @@ document.addEventListener('DOMContentLoaded', () => {
       await loadTabs();
       addTabFunctionality();
       pathDictionary[currentTabName] = await loadImages(currentTabName, 0, 3);
-      await selectTab(currentTabName);
+      selectTab(currentTabName);
       for (const tabName in tabData) {
         if (tabName == currentTabName) continue;
         pathDictionary[tabName] = await loadImages(tabName, 0, 3);
       } 
       await loadRemainingImages();
-      await addButtonFunctionality();
+      addButtonFunctionality();
     }
 
-    async function loadRemainingImages() {
-      for (const tabName in tabData) {
-        const remaining = await loadImages(tabName, 3, tabData[tabName].length);
-        pathDictionary[tabName] = pathDictionary[tabName].concat(remaining);
-      }
+    function loadRemainingImages() {
+      return new Promise ((resolve) => {
+        for (const tabName in tabData) {
+          const remaining = loadImages(tabName, 3, tabData[tabName].length);
+          pathDictionary[tabName] = pathDictionary[tabName].concat(remaining);
+        }
+      });
+      resolve();
     }
 
     function loadImages(tabName, startIndex, endIndex){
-      var tabList = [];
-      for (let i = startIndex; i < endIndex; i++) {
-        tabList.push(loadImage(tabName, i));
-      }
-      return tabList;
+      return new Promise ((resolve) => {
+        var tabList = [];
+        for (let i = startIndex; i < endIndex; i++) {
+          tabList.push(loadImage(tabName, i));
+        }
+        resolve(tabList);
+      });
     }
 
     function loadImage(tabName, imageIndex, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
@@ -65,14 +70,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function loadTabs(){
-      for (const key in tabData) {
-        var newDiv = document.createElement("div");
-        tabList[key] = newDiv;
-        newDiv.textContent = key.replace(/^./, char => char.toUpperCase());
-        newDiv.style.backgroundColor = "white";
-        newDiv.style.color = "black";
-        tabContainer.appendChild(newDiv);
-      }
+      return new Promise ((resolve) => {
+        for (const key in tabData) {
+          var newDiv = document.createElement("div");
+          tabList[key] = newDiv;
+          newDiv.textContent = key.replace(/^./, char => char.toUpperCase());
+          newDiv.style.backgroundColor = "white";
+          newDiv.style.color = "black";
+          tabContainer.appendChild(newDiv);
+        }
+        resolve();
+      });
     }
 
     function addTabFunctionality(){
@@ -107,12 +115,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function showDivs() {
       var pathList = pathDictionary[currentTabName];
       var imageName = tabData[currentTabName][centralImageIndex];
-      console.log(imageName);
       leftImage.src = pathList[modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
       centerImage.src = pathList[centralImageIndex];
       rightImage.src = pathList[modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)];
-      itemDescription.textContent =   descriptionsData?.[currentTabName]?.[imageName] ?? "";
-      console.debug(descriptionsData);
+      itemDescription.textContent = descriptionsData?.[currentTabName]?.[imageName] ?? "";
+      console.debug(itemDescription.textContent);
     }
     
     function plusDivs(n) {

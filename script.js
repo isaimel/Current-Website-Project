@@ -37,8 +37,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tabName == currentTabName) continue;
         pathDictionary[tabName] = await loadImages(tabName, 0, 3);
       } 
-      await loadRemainingImages();
       addButtonFunctionality();
+      await loadRemainingImages();
     }
 
     function loadRemainingImages() {
@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
       centerImage.src = pathList[centralImageIndex];
       rightImage.src = pathList[modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)];
       
-      itemDescription.textContent = descriptionsData?.[currentTabName]?.[imageName] ?? "";
+      itemDescription.innerHTML = descriptionsData?.[currentTabName]?.[imageName] ?? "";
       centerImage.alt = itemDescription.textContent;
       console.debug(itemDescription.textContent);
     }

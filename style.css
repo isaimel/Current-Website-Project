@@ -1,6 +1,11 @@
+:root {
+  --color-1: cornflowerblue;
+}
 body {
+  
     margin: 0;
 }
+
 button{
     border: none;
     cursor: pointer;
@@ -15,7 +20,7 @@ button{
 .header{
     display: flex;
     align-items: center;
-    color: black;
+    color: var(--color-1);
     width: 100%;
     padding: .4rem .8rem;
     box-sizing: border-box;
@@ -28,7 +33,7 @@ button{
   display: flex;
   justify-content: center;
   align-items: center;
-  color: black;
+  color: var(--color-1);
   width: 100%;
   height: 3.2rem;
   font-size: 2rem;
@@ -60,7 +65,7 @@ button:hover {
     /* gap: 1rem; */
     overflow-x: hidden;
     scrollbar-width: none;
-    background-color: black;
+    background-color: var(--color-1);
 }
 .left_image, .center_image, .right_image {
     display: flex;
@@ -84,8 +89,6 @@ button:hover {
     display: flex;
     justify-content: left;
     align-items: center;
-    background-color: white;
-    color: white;
     width: 100%;
     height: 4rem;
     font-size: 1.4rem;
@@ -98,6 +101,8 @@ button:hover {
   font-size: 1.4rem;
   height: 100%;
   user-select: none;
+  background-color: white;
+  color: var(--color-1);
 }
 .item_description{
   display: inline-flex;

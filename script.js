@@ -63,7 +63,8 @@ document.addEventListener('DOMContentLoaded', () => {
       var imageName = tabData[tabName][imageIndex];
       var imagePath = `${parentPath}${tabName}/${imageName}`;
       img.src = imagePath;
-      return imagePath;
+      img.alt = descriptionsData[tabName][imageName];
+      return img;
     }
 
     function loadTabs(){
@@ -72,8 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
           var newDiv = document.createElement("div");
           tabList[key] = newDiv;
           newDiv.textContent = key.replace(/^./, char => char.toUpperCase());
-          newDiv.style.backgroundColor = "white";
-          newDiv.style.color = "black";
           tabContainer.appendChild(newDiv);
         }
         resolve();
@@ -92,11 +91,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     function selectTab(tabName){
-      tabList[currentTabName].style.backgroundColor = "white";
-      tabList[currentTabName].style.color = "black";
-
+      tabList[currentTabName].style.backgroundColor = '';
+      tabList[currentTabName].style.color = '';
       currentTabName = tabName;
-      tabList[currentTabName].style.backgroundColor = "black";
+
+      tabList[currentTabName].style.backgroundColor = "var(--color-1)";
       tabList[currentTabName].style.color = "white";
       showDivs();
     }
@@ -111,15 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showDivs() {
       var pathList = pathDictionary[currentTabName];
-      var imageName = tabData[currentTabName][centralImageIndex];
       
-      leftImage.src = pathList[modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
-      centerImage.src = pathList[centralImageIndex];
-      rightImage.src = pathList[modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)];
-      
-      itemDescription.innerHTML = descriptionsData?.[currentTabName]?.[imageName] ?? "";
-      centerImage.alt = itemDescription.textContent;
-      console.debug(itemDescription.textContent);
+      leftImage.src = pathList[modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)].src;
+      centerImage.src = pathList[centralImageIndex].src;
+      rightImage.src = pathList[modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)].src;
+      itemDescription.innerHTML = pathList[centralImageIndex].alt;
     }
     
     function plusDivs(n) {

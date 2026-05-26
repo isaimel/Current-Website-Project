@@ -136,10 +136,10 @@ button:hover {
 
 @media (max-width: 650px) {
   .tab_container div {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
   .item_description p{
-    font-size: 0.8rem;
+    font-size: 0.9rem;
   }
   .slideshow_container {
     grid-template-rows: 20rem 6rem;

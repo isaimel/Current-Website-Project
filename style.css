@@ -54,7 +54,7 @@ button:hover {
     justify-self: center;
     align-items: center;
     justify-content: center;
-    grid-template-rows: 24rem 4rem;
+    grid-template-rows: 28rem 6rem;
     grid-template-columns: 45% 45% 45%;
     min-width: 100%;
     /* gap: 1rem; */
@@ -108,6 +108,10 @@ button:hover {
   height: 100%;
   text-align: center;
 }
+.item_description p{
+  margin: 0;
+  font-size: 1.2rem;
+}
 
 @keyframes initialZoom{
   from{
@@ -122,10 +126,22 @@ button:hover {
   .tab_container div {
     font-size: 1.2rem;
   }
+  .item_description p{
+    font-size: 1.0rem;
+  }
+  .slideshow_container {
+    grid-template-rows: 24rem 6rem;
+  }
 }
 
 @media (max-width: 650px) {
   .tab_container div {
     font-size: .9rem;
+  }
+  .item_description p{
+    font-size: 0.8rem;
+  }
+  .slideshow_container {
+    grid-template-rows: 20rem 6rem;
   }
 }

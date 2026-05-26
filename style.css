@@ -77,6 +77,8 @@ button:hover {
     max-width: 100%;
     z-index: 1;
     animation: initialZoom 1s ease-in-out;
+    user-select: none;
+
 }
 .tab_container {
     display: flex;

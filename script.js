@@ -111,7 +111,7 @@ document.addEventListener('DOMContentLoaded', () => {
       leftImage.src = pathList[modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)];
       centerImage.src = pathList[centralImageIndex];
       rightImage.src = pathList[modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)];
-      // itemDescription.textContent = descriptionsData[currentTabName]?.[imageName] ?? "";
+      itemDescription.textContent =   descriptionsData?.[currentTabName]?.[imageName] ?? "";
       console.debug(descriptionsData);
     }
     

@@ -21,9 +21,14 @@ button{
     display: flex;
     align-items: center;
     color: var(--color-1);
+    height: 12rem;
     width: 100%;
     padding: .4rem .8rem;
     box-sizing: border-box;
+}
+.header img {
+  height: 100%;
+  width: auto;
 }
 .name{
     font-size: 1.2rem;

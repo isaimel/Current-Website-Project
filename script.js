@@ -33,8 +33,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (tabName == currentTabName) continue;
         pathDictionary[tabName] = await loadImages(tabName, 0, 3);
       } 
+      await loadRemainingImages();
       await addButtonFunctionality();
-      loadRemainingImages();
     }
 
     async function loadRemainingImages() {

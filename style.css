@@ -76,7 +76,7 @@ button:hover {
     width: auto;
     max-width: 100%;
     z-index: 1;
-    animation: initialZoom 1s ease-in-out;
+    animation: initialZoom .8s ease-in-out;
     user-select: none;
 
 }

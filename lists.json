@@ -8,12 +8,64 @@
     },
     "descriptions":{
         "merchandise": {
-            "las_aranas_white.png": "Logo for the Jonathan Edwards College Latine student group founded in 2026, <i>Las Arañas</i>.",
+            "las_aranas_white.png": "Logo for the Jonathan Edwards College Latine student group founded in 2026, Las Arañas.",
             "tulip_allison.png": "Design for the 3<sup>rd</sup> Tulip Princess of the Jonathan Edwards College, a title bestowed to a student who embodies the \"spirit of the tulip.\"",
             "bread_and_circuses_white.png": "Logo for the Yale University society founded in 2025, Bread & Circuses.",
             "je_sux_center_white.png": "Design for the Jonathan Edwards College store displaying the college's motto and mascot.",
             "je_sux_skew_white.png": "Design for the Jonathan Edwards College store displaying the college's motto and mascot.",
-            "tulip_maddy.png": "Design for the 5<sup>th</sup> Tulip Princess of the Jonathan Edwards College, a title bestowed to a student who embodies the \"spirit of the tulip.\""
+            "tulip_maddy.png": "Design for the 4<sup>th</sup> Tulip Princess of the Jonathan Edwards College, a title bestowed to a student who embodies the \"spirit of the tulip.\""
+        },
+        "graphics": {
+            "drum_set.png": "A two-color graphic of a drum set.",
+            "electric_guitar.png": "A two-color graphic of an electric guitar.",
+            "fancy_JE_text.png": "A graphic for the Jonathan Edwards College.",
+            "keyboard.png": "A two-color graphic of a kerboard.",
+            "microphone.png": "A two-color graphic of a standing microphone.",
+            "saxophone.png": "A two-color graphic of a saxophone.",
+            "trumpet.png": "A two-color graphic of a trumpet.",
+            "violin.png": "A two-color graphic of a violin."
+        },
+        "advertisements": {
+            "accent_sun.png": "The back cover of the 2023 publication of Yale University's undergraduate multilingual magazine, <i>ACCENT</i>.",
+            "apple_picking.png": "A flyer advertising a trip to a local apple orchard.",
+            "cpa_poster.png": "A flyer advertising a decorating and gift-making workshop through the Jonathan Edwards College's Creative and Performing Arts program.",
+            "late_night_nuggets.png": "A flyer inviting prospective students to learn about a university club.",
+            "next_to_normal_thin.png": "The cover of the program for the undergraduate production of the <i>Next to Normal</i> play.",
+            "next_to_normal_wide.png": "The banner for the online webpage for the undergraduate production of the <i>Next to Normal</i> play.",
+            "spider_ball_swing.png": "A flyer advertising the Jonathan Edwards College spring formal.",
+            "spider_cider.png": "A flyer advertising a weekly social event hosted by the Jonathan Edwards College held throughout the fall.",
+            "tea_for_tuesday.png": "A flyer advertising a weekly social event hosted by the Jonathan Edwards College held throughout the spring.",
+            "tulip_protection.png": "A flyer cautioning against trampling flower beds in an upcoming student event."
+        },
+        "traditional":{
+            "blue_ice_cream.png": "A friend's hand holding a waffle cone with bright blue ice cream.",
+            "blue_jay.png": "A blue jay landing on a springy branch.",
+            "cat_comission.png": "A friend's fluffy tuxedo cat",
+            "chicken_rice.png": "A delicious meal of rice, chicken, and shrimp steamed in a banana leaf wrapping.",
+            "coffee_cup.png": "A swirling cup of coffee with a little cookie.",
+            "flan.png": "A tasty sugary flan.",
+            "koi_fish.png": "Two koi fish swimming in a dark pond.",
+            "large_leaf_flower.png": "A bright pink flower standing amongst large drooping leaves.",
+            "maine_ocean.png": "The Giant's Stairs of Harpswell, Maine.",
+            "random_breakfast.png": "A very fruit-filled breakfast.",
+            "rats_and_boba.png": "A painting of two mice held infront of a painting.",
+            "red_panda.png": "A red panda in a green field.",
+            "salmon_flower.png": "A flower from the grandmother's backyard.",
+            "salvadoran_sweets.png": "An assortment of sweet treats to pair with a bitter cup of coffee.",
+            "shiba_gift.png": "A shiba sitting on a sandy shore.",
+            "snoopy_comission.png": "Snoopy wearing a friend's iconic jacket.",
+            "sunflower.png": "Sunflowers in the grandmother's backyard.",
+            "totoro_gift.png": "A gift for a Studio Ghibli loving friend.",
+            "willoughbys_heart.png": "A routine trip to the local coffee shop.",
+            "yellow_flowers.png": "A row of yellow flowers."
+        },
+        "miscellaneous": {
+            "graphics_final.gif": "The final assignment for a 3D graphics course.",
+            "moth_practice.png": "A black-and-white study of a moth.",
+            "abstract_spider.png": "An assignment for a digital art course.",
+            "couple_comission.png": "A commission for a couple's anniversary.",
+            "desk_study.jpg": "An assignment for a digital art couse.",
+            "digital_final.gif": "The final assignment for a digital arts course."
         }
     }
 }

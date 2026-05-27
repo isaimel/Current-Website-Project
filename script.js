@@ -21,16 +21,25 @@ document.addEventListener('DOMContentLoaded', () => {
     var tabContainer = gallery.querySelector(".tab_container");
     var itemDescription = gallery.querySelector(".item_description p");
 
+    var slideshowContainer = gallery.querySelector(".slideshow_container");
+    var allContainer = gallery.querySelector(".all_container");
+    allContainer.style.display = 'none';
+
+    var galleryHeader = gallery.querySelector(".gallery_header");
+
+    var currentGallery = 0;
+
     var centralImageIndex = 1;
     var tabList = {};
     var pathDictionary = {};
     var currentTabName = Object.keys(tabData)[0];
 
+    var tabFullGalleries = {};
+
     initializeGallery();
 
     async function initializeGallery(){
       await loadTabs();
-      addTabFunctionality();
       pathDictionary[currentTabName] = await loadImages(currentTabName, 0, 3);
       selectTab(currentTabName);
 
@@ -40,9 +49,25 @@ document.addEventListener('DOMContentLoaded', () => {
         promises.push(loadImages(tabName, 0, 3).then(imgs => pathDictionary[tabName] = imgs));
       }
       await Promise.all(promises);
-
+      addTabFunctionality();
       await loadRemainingImages();
       addButtonFunctionality();
+      galleryHeader.addEventListener("click", () => swapGallery())
+      
+    }
+    function swapGallery(){
+      if (currentGallery == 0){
+        currentGallery = 1;
+        slideshowContainer.style.display = 'none';
+        allContainer.style.display = '';
+        selectTab(currentTabName);
+      }
+      else{
+        currentGallery = 0;
+        slideshowContainer.style.display = '';
+        allContainer.style.display = 'none';
+      }
+      console.log(currentGallery);
     }
 
     async function loadRemainingImages() {
@@ -69,7 +94,11 @@ document.addEventListener('DOMContentLoaded', () => {
         var imagePath = `${parentPath}${tabName}/${imageName}`;
         img.src = imagePath;
         img.alt = descriptionsData[tabName][imageName];
-        img.onload = () => resolve(img);
+        img.onload = () => {
+          img.ratio = img.naturalWidth > img.naturalHeight ? 0 : 1;
+          tabFullGalleries[tabName].appendChild(img);
+          resolve(img);
+        }
         img.onerror = () => resolve(img);
       });
     }
@@ -77,10 +106,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadTabs(){
       return new Promise ((resolve) => {
         for (const key in tabData) {
-          var newDiv = document.createElement("div");
-          tabList[key] = newDiv;
-          newDiv.textContent = key.replace(/^./, char => char.toUpperCase());
-          tabContainer.appendChild(newDiv);
+          var tabDiv = document.createElement("div");
+          tabList[key] = tabDiv;
+          var galleryDiv = document.createElement("div");
+          tabFullGalleries[key] = galleryDiv;
+          allContainer.appendChild(galleryDiv);
+          tabDiv.textContent = key.replace(/^./, char => char.toUpperCase());
+          tabContainer.appendChild(tabDiv);
         }
         resolve();
       });
@@ -100,11 +132,13 @@ document.addEventListener('DOMContentLoaded', () => {
     function selectTab(tabName){
       tabList[currentTabName].style.backgroundColor = '';
       tabList[currentTabName].style.color = '';
+      var oldTabName = currentTabName;
       currentTabName = tabName;
 
       tabList[currentTabName].style.backgroundColor = "var(--color-1)";
       tabList[currentTabName].style.color = "white";
-      showDivs();
+      if (currentGallery == 0) showDivs();
+      else showGallery(oldTabName);
     }
 
     function swapTab(tabName) {
@@ -117,13 +151,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function showDivs() {
       var pathList = pathDictionary[currentTabName];
-      
-      leftImage.src = pathList[modLoop(centralImageIndex - 1, pathDictionary[currentTabName].length)].src;
-      centerImage.src = pathList[centralImageIndex].src;
-      rightImage.src = pathList[modLoop(centralImageIndex + 1, pathDictionary[currentTabName].length)].src;
-      itemDescription.innerHTML = pathList[centralImageIndex].alt;
+
+      var leftImg   = pathList[modLoop(centralImageIndex - 1, pathList.length)];
+      var centerImg = pathList[centralImageIndex];
+      var rightImg  = pathList[modLoop(centralImageIndex + 1, pathList.length)];
+
+      leftImage.src   = leftImg.src;
+      centerImage.src = centerImg.src;
+      rightImage.src  = rightImg.src;
+      itemDescription.innerHTML = centerImg.alt;
+
+      applyImageStyle(leftImage,   leftImg.ratio);
+      applyImageStyle(centerImage, centerImg.ratio);
+      applyImageStyle(rightImage,  rightImg.ratio);
     }
-    
+    function showGallery(oldTab){
+      tabFullGalleries[oldTab].style.display = '';
+      tabFullGalleries[currentTabName].style.display = 'flex';
+    }
+
+    function applyImageStyle(imgElement, ratio) {
+    if (ratio == 0) {
+      imgElement.style.width = '100%';
+      imgElement.style.height = 'auto';
+    } else {
+      imgElement.style.height = '100%';
+      imgElement.style.width = 'auto ';
+    }
+  }
     function plusDivs(n) {
       centralImageIndex = modLoop(centralImageIndex + n, pathDictionary[currentTabName].length);
       showDivs();

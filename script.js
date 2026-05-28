@@ -265,6 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
     iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
     iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
     iframe.allowFullscreen = true;
+    console.log(iframe.src);
     return iframe;
 }
 });

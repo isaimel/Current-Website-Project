@@ -1,10 +1,5 @@
 {   
     "projects":{
-        "game_engines": {
-            "headline": "TEST",
-            "youtube_link": "https://www.youtube.com/embed/dQw4w9WgXcQ",
-            "description": "TEST"
-        },
         "thesis_project": {
             "headline": "TEST",
             "youtube_link": "https://www.youtube.com/embed/GkSij1V7D1A?si=a99ZthB497Kwt0dB" ,

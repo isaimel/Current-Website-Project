@@ -3,8 +3,8 @@
         "merchandise": ["las_aranas_white.png", "tulip_allison.png", "bread_and_circuses_white.png", "je_sux_skew_white.png",  "tulip_maddy.png", "je_sux_center_white.png"],
         "graphics": ["drum_set.png", "electric_guitar.png", "fancy_JE_text.png", "keyboard.png", "microphone.png", "saxophone.png", "trumpet.png", "violin.png"],
         "advertisements": ["accent_sun.png", "apple_picking.png", "cpa_poster.png", "late_night_nuggets.png", "next_to_normal_thin.png", "next_to_normal_wide.png", "spider_ball_swing.png", "spider_cider.png", "tea_for_tuesday.png", "tulip_protection.png"],
-        "traditional": ["blue_ice_cream.png", "blue_jay.png", "cat_comission.png", "chicken_rice.png", "coffee_cup.png", "flan.png", "koi_fish.png", "large_leaf_flower.png", "maine_ocean.png", "random_breakfast.png", "rats_and_boba.png", "red_panda.png", "salmon_flower.png", "salvadoran_sweets.png", "shiba_gift.png", "snoopy_comission.png", "sunflower.png", "totoro_gift.png", "willoughbys_heart.png", "yellow_flowers.png"],
-        "miscellaneous": ["graphics_final.gif", "moth_practice.png", "abstract_spider.png", "couple_comission.png", "desk_study.jpg", "digital_final.gif"]
+        "traditional": ["blue_ice_cream.png", "blue_jay.png", "cat_commission.png", "chicken_rice.png", "coffee_cup.png", "flan.png", "koi_fish.png", "large_leaf_flower.png", "maine_ocean.png", "random_breakfast.png", "rats_and_boba.png", "red_panda.png", "salmon_flower.png", "salvadoran_sweets.png", "shiba_gift.png", "snoopy_commission.png", "sunflower.png", "totoro_gift.png", "willoughbys_heart.png", "yellow_flowers.png"],
+        "miscellaneous": ["graphics_final.gif", "moth_practice.png", "abstract_spider.png", "couple_commission.png", "desk_study.jpg", "digital_final.gif"]
     },
     "descriptions":{
         "merchandise": {
@@ -19,7 +19,7 @@
             "drum_set.png": "A two-color graphic of a drum set.",
             "electric_guitar.png": "A two-color graphic of an electric guitar.",
             "fancy_JE_text.png": "A graphic for the Jonathan Edwards College.",
-            "keyboard.png": "A two-color graphic of a kerboard.",
+            "keyboard.png": "A two-color graphic of a keyboard.",
             "microphone.png": "A two-color graphic of a standing microphone.",
             "saxophone.png": "A two-color graphic of a saxophone.",
             "trumpet.png": "A two-color graphic of a trumpet.",
@@ -40,7 +40,7 @@
         "traditional":{
             "blue_ice_cream.png": "A friend's hand holding a waffle cone with bright blue ice cream.",
             "blue_jay.png": "A blue jay landing on a springy branch.",
-            "cat_comission.png": "A friend's fluffy tuxedo cat",
+            "cat_commission.png": "A friend's fluffy tuxedo cat",
             "chicken_rice.png": "A delicious meal of rice, chicken, and shrimp steamed in a banana leaf wrapping.",
             "coffee_cup.png": "A swirling cup of coffee with a little cookie.",
             "flan.png": "A tasty sugary flan.",
@@ -53,7 +53,7 @@
             "salmon_flower.png": "A flower from the grandmother's backyard.",
             "salvadoran_sweets.png": "An assortment of sweet treats to pair with a bitter cup of coffee.",
             "shiba_gift.png": "A shiba sitting on a sandy shore.",
-            "snoopy_comission.png": "Snoopy wearing a friend's iconic jacket.",
+            "snoopy_commission.png": "Snoopy wearing a friend's iconic jacket.",
             "sunflower.png": "Sunflowers in the grandmother's backyard.",
             "totoro_gift.png": "A gift for a Studio Ghibli loving friend.",
             "willoughbys_heart.png": "A routine trip to the local coffee shop.",
@@ -63,8 +63,8 @@
             "graphics_final.gif": "The final assignment for a 3D graphics course.",
             "moth_practice.png": "A black-and-white study of a moth.",
             "abstract_spider.png": "An assignment for a digital art course.",
-            "couple_comission.png": "A commission for a couple's anniversary.",
-            "desk_study.jpg": "An assignment for a digital art couse.",
+            "couple_commission.png": "A commission for a couple's anniversary.",
+            "desk_study.jpg": "An assignment for a digital art course.",
             "digital_final.gif": "The final assignment for a digital arts course."
         }
     }

@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
       centerImage.addEventListener('click', () => {
         rewriteLightbox('flex', centerImage.src, centerImage.alt);
         lightboxImg.ratio = centerImage.ratio;
-        applyImageStyle(lightboxImg, lightboxImg.ratio , 'max(40vw, 18rem + 18vw)')
+        applyImageStyle(lightboxImg, lightboxImg.ratio , 'max(40vw, 18rem + 18vw)');
       });
       await loadFirstThrees();
       addTabFunctionality();
@@ -213,12 +213,13 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   function applyImageStyle(imgElement, ratio, percent = '100%') {
+    if (ratio === undefined) ratio = Orientation.PORTRAIT; 
     if (ratio == Orientation.LANDSCAPE) {
       imgElement.style.width = percent;
       imgElement.style.height = 'auto';
     } else {
       imgElement.style.height = percent;
-      imgElement.style.width = 'auto ';
+      imgElement.style.width = 'auto';
     }
   }
   function modLoop(n, cap){

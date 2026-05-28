@@ -218,6 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
     var projectsData = jsonData.projects;
     for (const projectInfo of Object.values(projectsData)){
       var projectDiv = document.createElement("div");
+      projectDiv.classList.add("project");
       var projecTextDiv = document.createElement("div");
       var videoIframe = createYoutubeIframe(projectInfo.youtube_link);
 

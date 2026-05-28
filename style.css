@@ -252,14 +252,17 @@ button:hover {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    gap:2vw;
 }
 .project{
     display: grid;
-    grid-template-rows: 12vw;
-    grid-template-columns: 25% 75%;
+    justify-content: center;
+    align-items: center;
+    grid-template-rows: 24vw;
+    grid-template-columns: auto auto;
     width: 100%;
 }
 .project iframe{
-    width: 100%;
-    height: auto;
+    width: auto;
+    height: 100%;
 }

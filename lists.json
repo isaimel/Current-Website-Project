@@ -2,12 +2,12 @@
     "projects":{
         "game_engines": {
             "headline": "TEST",
-            "youtube_link":"https://www.youtube.com/embed/wGFAiUFf8XQ?si=M1e4mf80K4o0gCBq" ,
+            "youtube_link": "https://www.youtube.com/embed/wGFAiUFf8XQ",
             "description": "TEST"
         },
         "thesis_project": {
             "headline": "TEST",
-            "youtube_link":"https://www.youtube.com/embed/GkSij1V7D1A?si=a99ZthB497Kwt0dB" ,
+            "youtube_link": "https://www.youtube.com/embed/GkSij1V7D1A",
             "description": "TEST"
         }
     },

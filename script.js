@@ -216,22 +216,24 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   function addAllProjects(projects_container, jsonData){
     var projectsData = jsonData.projects;
-    var allProjects = Object.values(projectsData)
-    for (const projectInfo in allProjects){
+    for (const projectInfo of Object.values(projectsData)){
       var projectDiv = document.createElement("div");
       var projecTextDiv = document.createElement("div");
-      var videoIframe = document.createElement("iframe");
+      var videoIframe = createYoutubeIframe(projectInfo.youtube_link);
+
       projectDiv.appendChild(videoIframe);
       projectDiv.appendChild(projecTextDiv);
 
       var projectTitle = document.createElement("span");
-      var projectDescription = document.createElement("paragraph");
+      var projectDescription = document.createElement("p");
       projecTextDiv.appendChild(projectTitle);
       projecTextDiv.appendChild(projectDescription);
       
-      projectTitle.innerText(projectInfo["headline"]);
-      projectDescription.innerText(projectInfo["description"]);
-      videoIframe.src = projectInfo["youtube_link"];
+      console.log(projectInfo);
+      projectTitle.innerText = projectInfo["headline"];
+      projectDescription.innerText = projectInfo["description"];
+
+      projects_container.appendChild(projectDiv);
 
     }
   }
@@ -254,4 +256,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return n;
   } 
+  function createYoutubeIframe(youtubeURL) {
+    var iframe = document.createElement("iframe");
+    iframe.src = youtubeURL;
+    iframe.title = "YouTube video player";
+    iframe.className = "youtube-embed";
+    iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
+    iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+    iframe.allowFullscreen = true;
+    return iframe;
+}
 });

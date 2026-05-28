@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+  const Display = Object.freeze({
+    SCROLL:   Symbol("scroll"),
+    ALL:  Symbol("all")
+  });
+
+  const Orientation = Object.freeze({
+    PORTRAIT:   Symbol("portrait"),
+    LANDSCAPE:  Symbol("landscape")
+  });
+  
   const queryURL = 'https://isaimel.github.io/Current-Website-Project/lists.json';
   
   fetch(queryURL)
@@ -10,71 +20,86 @@ document.addEventListener('DOMContentLoaded', () => {
     .catch(error => console.log('Error during fetch: ' + error.message));
   
   function galleryFunctionality(gallery, jsonData){
+    const lightboxContainer = document.getElementById('lightboxContainer');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxDescription = lightboxContainer.querySelector("span");
+
     var tabData = jsonData.tabs;
     var descriptionsData = jsonData.descriptions;
 
-    var leftImage = gallery.querySelector(".left_image").querySelector(".slides");
-    var centerImage = gallery.querySelector(".center_image").querySelector(".slides");
-    var rightImage = gallery.querySelector(".right_image").querySelector(".slides");
+    var leftImage = gallery.querySelector(".left_image");
+    var centerImage = gallery.querySelector(".center_image");
+    var rightImage = gallery.querySelector(".right_image");
+
     var leftButton = gallery.querySelector(".slideshow_left");
     var rightButton = gallery.querySelector(".slideshow_right");
     var tabContainer = gallery.querySelector(".tab_container");
-    var itemDescription = gallery.querySelector(".item_description p");
+    var itemDescription = gallery.querySelector(".item_description");
 
     var slideshowContainer = gallery.querySelector(".slideshow_container");
-    var allContainer = gallery.querySelector(".all_container");
-    allContainer.style.display = 'none';
+    var tabGalleriesContainer = gallery.querySelector(".all_container");
+    tabGalleriesContainer.style.display = 'none';
 
-    var galleryHeader = gallery.querySelector(".gallery_header");
+    var galleryHeader = gallery.querySelector(".swap_layout");
 
-    var currentGallery = 0;
+    var currentGallery = Display.SCROLL;
 
-    var centralImageIndex = 1;
-    var tabList = {};
-    var pathDictionary = {};
-    var currentTabName = Object.keys(tabData)[0];
+    var middleImgInd = 1;
+    var tabDivList = {};
+    var imageDict = {};
+    var tabGalleries = {};
 
-    var tabFullGalleries = {};
+    var currentTab = Object.keys(tabData)[0];
+
 
     initializeGallery();
 
+    
+
     async function initializeGallery(){
       await loadTabs();
-      pathDictionary[currentTabName] = await loadImages(currentTabName, 0, 3);
-      selectTab(currentTabName);
+      imageDict[currentTab] = await loadImages(currentTab, 0, 3);
 
-      var promises = [];
-      for (const tabName in tabData) {
-        if (tabName == currentTabName) continue;
-        promises.push(loadImages(tabName, 0, 3).then(imgs => pathDictionary[tabName] = imgs));
-      }
-      await Promise.all(promises);
+      selectTab(currentTab);
+      centerImage.addEventListener('click', () => {
+        rewriteLightbox('flex', centerImage.src, centerImage.alt);
+        lightboxImg.ratio = centerImage.ratio;
+        applyImageStyle(lightboxImg, lightboxImg.ratio , 'max(40vw, 18rem + 18vw)')
+      });
+      await loadFirstThrees();
       addTabFunctionality();
       await loadRemainingImages();
       addButtonFunctionality();
       galleryHeader.addEventListener("click", () => swapGallery())
-      
+      lightboxContainer.addEventListener('click', () => rewriteLightbox('none', '', ""));
     }
     function swapGallery(){
-      if (currentGallery == 0){
-        currentGallery = 1;
+      if (currentGallery == Display.SCROLL){
+        currentGallery = Display.ALL;
         slideshowContainer.style.display = 'none';
-        allContainer.style.display = '';
-        selectTab(currentTabName);
+        tabGalleriesContainer.style.display = '';
+        selectTab(currentTab);
       }
       else{
-        currentGallery = 0;
+        currentGallery = Display.SCROLL;
         slideshowContainer.style.display = '';
-        allContainer.style.display = 'none';
+        tabGalleriesContainer.style.display = 'none';
       }
-      console.log(currentGallery);
+    }
+    function loadFirstThrees() {
+      var promises = [];
+      for (const tabName in tabData) {
+        if (tabName == currentTab) continue;
+        promises.push(loadImages(tabName, 0, 3).then(imgs => imageDict[tabName] = imgs));
+      }
+      return Promise.all(promises);
     }
 
     async function loadRemainingImages() {
       var promises = [];
       for (const tabName in tabData) {
         promises.push(loadImages(tabName, 3, tabData[tabName].length)
-          .then(imgs => pathDictionary[tabName] = pathDictionary[tabName].concat(imgs)));
+          .then(imgs => imageDict[tabName] = imageDict[tabName].concat(imgs)));
       }
       return Promise.all(promises);
     }
@@ -95,32 +120,40 @@ document.addEventListener('DOMContentLoaded', () => {
         img.src = imagePath;
         img.alt = descriptionsData[tabName][imageName];
         img.onload = () => {
-          img.ratio = img.naturalWidth > img.naturalHeight ? 0 : 1;
-          tabFullGalleries[tabName].appendChild(img);
+          img.ratio = img.naturalWidth > img.naturalHeight ? Orientation.LANDSCAPE : Orientation.PORTRAIT;
+          img.addEventListener('click', () => rewriteLightbox('flex', img.src, img.alt));
+          tabGalleries[tabName].appendChild(img);
           resolve(img);
         }
         img.onerror = () => resolve(img);
       });
+    }
+    function rewriteLightbox(displayStyle, imageSource, imageAlt){
+      lightboxContainer.style.display = displayStyle;
+      lightboxImg.src = imageSource;
+      lightboxDescription.innerHTML = imageAlt;
     }
 
     function loadTabs(){
       return new Promise ((resolve) => {
         for (const key in tabData) {
           var tabDiv = document.createElement("div");
-          tabList[key] = tabDiv;
           var galleryDiv = document.createElement("div");
-          tabFullGalleries[key] = galleryDiv;
-          allContainer.appendChild(galleryDiv);
+
+          tabDivList[key] = tabDiv;
+          tabGalleries[key] = galleryDiv;
           tabDiv.textContent = key.replace(/^./, char => char.toUpperCase());
+          
           tabContainer.appendChild(tabDiv);
+          tabGalleriesContainer.appendChild(galleryDiv);
         }
         resolve();
       });
     }
 
     function addTabFunctionality(){
-      for (const key in tabList) {
-        tabList[key].addEventListener("mouseover", () => swapTab(key));
+      for (const key in tabDivList) {
+        tabDivList[key].addEventListener("mouseover", () => swapTab(key));
       }
     }
 
@@ -129,36 +162,41 @@ document.addEventListener('DOMContentLoaded', () => {
       rightButton.addEventListener("click", () => plusDivs(1));       
     }
     
-    function selectTab(tabName){
-      tabList[currentTabName].style.backgroundColor = '';
-      tabList[currentTabName].style.color = '';
-      var oldTabName = currentTabName;
-      currentTabName = tabName;
+    function selectTab(newTabName){
+      var oldTabName = currentTab;
+      tabDivList[currentTab].style.backgroundColor = '';
+      tabDivList[currentTab].style.color = '';
+      
+      currentTab = newTabName;
 
-      tabList[currentTabName].style.backgroundColor = "var(--color-1)";
-      tabList[currentTabName].style.color = "white";
-      if (currentGallery == 0) showDivs();
+      tabDivList[currentTab].style.backgroundColor = "var(--color-1)";
+      tabDivList[currentTab].style.color = "white";
+
+      if (currentGallery == Display.SCROLL) showDivs();
       else showGallery(oldTabName);
     }
 
     function swapTab(tabName) {
-      if (tabName == currentTabName) {
+      if (tabName == currentTab) {
         return;
       }
-      centralImageIndex = 1;
+      middleImgInd = 1;
       selectTab(tabName);
     }
 
     function showDivs() {
-      var pathList = pathDictionary[currentTabName];
+      var pathList = imageDict[currentTab];
 
-      var leftImg   = pathList[modLoop(centralImageIndex - 1, pathList.length)];
-      var centerImg = pathList[centralImageIndex];
-      var rightImg  = pathList[modLoop(centralImageIndex + 1, pathList.length)];
+      var leftImg   = pathList[modLoop(middleImgInd - 1, pathList.length)];
+      var centerImg = pathList[middleImgInd];
+      var rightImg  = pathList[modLoop(middleImgInd + 1, pathList.length)];
 
       leftImage.src   = leftImg.src;
       centerImage.src = centerImg.src;
       rightImage.src  = rightImg.src;
+
+      centerImage.alt = centerImg.alt;
+      centerImage.ratio = centerImg.ratio;
       itemDescription.innerHTML = centerImg.alt;
 
       applyImageStyle(leftImage,   leftImg.ratio);
@@ -166,25 +204,23 @@ document.addEventListener('DOMContentLoaded', () => {
       applyImageStyle(rightImage,  rightImg.ratio);
     }
     function showGallery(oldTab){
-      tabFullGalleries[oldTab].style.display = '';
-      tabFullGalleries[currentTabName].style.display = 'flex';
+      tabGalleries[oldTab].style.display = '';
+      tabGalleries[currentTab].style.display = 'flex';
     }
-
-    function applyImageStyle(imgElement, ratio) {
-    if (ratio == 0) {
-      imgElement.style.width = '100%';
-      imgElement.style.height = 'auto';
-    } else {
-      imgElement.style.height = '100%';
-      imgElement.style.width = 'auto ';
-    }
-  }
     function plusDivs(n) {
-      centralImageIndex = modLoop(centralImageIndex + n, pathDictionary[currentTabName].length);
+      middleImgInd = modLoop(middleImgInd + n, imageDict[currentTab].length);
       showDivs();
     }
   }
-
+  function applyImageStyle(imgElement, ratio, percent = '100%') {
+    if (ratio == Orientation.LANDSCAPE) {
+      imgElement.style.width = percent;
+      imgElement.style.height = 'auto';
+    } else {
+      imgElement.style.height = percent;
+      imgElement.style.width = 'auto ';
+    }
+  }
   function modLoop(n, cap){
     if (n >= cap) {
       return 0

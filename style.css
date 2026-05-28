@@ -2,12 +2,14 @@
   --color-1: black;
   --slides_dimension: max(32vw, 14rem + 16vw);
 }
-html{
-}
+
 body {
+    display: flex;
+    flex-direction: column;
     margin: 0;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-}
+    gap: 2vw;
+} 
 a:link, a:visited {
   color: var(--color-1);
 }
@@ -67,28 +69,27 @@ button{
   padding: .2rem;
   background-color: white;
   box-sizing: border-box;
-  user-select: none;
-  cursor: pointer;
+}
+.swap_layout{
+    user-select: none;
+    cursor: pointer;
 }
 button:hover {
     opacity: 1;
 }
 .slideshow_left, .slideshow_right {
-    z-index: 1;
-}
-.slideshow_left{
+    z-index: 2;
     position: absolute;
     z-index: 2;
+}
+.slideshow_left{
     left: .4rem;
 }
 .slideshow_right {
-    position: absolute;
-    z-index: 2;
     right: .4rem;
 }
 .slideshow_container {
     display: grid;
-    justify-self: center;
     align-items: center;
     justify-content: center;
     grid-template-rows: var(--slides_dimension);
@@ -101,20 +102,17 @@ button:hover {
     gap: 1vw 10vw;
 }
 .left_image, .center_image, .right_image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-x: hidden;
     height: 100%;
     width: 100%;
-    scrollbar-width: none;
-    overflow-y: hidden;
     background-color: var(--color-1);
-}
-.slides {
     z-index: 1;
     animation: initialZoom 0.8s ease-in-out;
     user-select: none;
+    justify-self: center;
+}
+
+.center_image{
+    cursor: pointer;
 }
 
 @keyframes initialZoom {
@@ -148,7 +146,7 @@ button:hover {
 
 }
 .item_description{
-  display: inline-flex;
+  display: none;
   justify-content: center;
   align-items: start;
   color: white;
@@ -178,6 +176,8 @@ button:hover {
 .about_me img{
     height: var(--slides_dimension);
     width: auto;
+    animation: initialZoom 0.8s ease-in-out;
+
 }
 .study{
     display: flex;
@@ -212,16 +212,38 @@ button:hover {
     flex: 1;
     padding: 4vw 0;
     box-sizing: border-box;
-
 }
 .all_container img{
     height: max(24vw);
     cursor: pointer;
     width: auto;
-    opacity: 0.90;
-
 }
 .all_container img:hover{
     transform: scale(1.1);
+    filter: saturate(1.1s);
+}
+#lightboxContainer {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+#lightboxContainer img {
     opacity: 1;
+    pointer-events: pointer;
+    user-select: none;
+}
+#lightboxContainer span {
+    opacity: 1;
+    color: white;
+    width: 50%;
+    font-size: max(2vw, 1rem);
+    text-align: center;
 }

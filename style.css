@@ -233,11 +233,11 @@ button:hover {
     z-index: 2000;
     flex-direction: column;
     gap: 1vw;
+    cursor: pointer;
 }
 
 #lightboxContainer img {
     opacity: 1;
-    pointer-events: pointer;
     user-select: none;
 }
 #lightboxContainer span {

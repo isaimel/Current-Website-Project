@@ -51,10 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     var currentTab = Object.keys(tabData)[0];
 
-
-    initializeGallery();
-
-    
+    initializeGallery();    
 
     async function initializeGallery(){
       await loadTabs();
@@ -63,8 +60,7 @@ document.addEventListener('DOMContentLoaded', () => {
       selectTab(currentTab);
       centerImage.addEventListener('click', () => {
         rewriteLightbox('flex', centerImage.src, centerImage.alt);
-        lightboxImg.ratio = centerImage.ratio;
-        applyImageStyle(lightboxImg, lightboxImg.ratio , 'max(40vw, 18rem + 18vw)');
+        applyImageStyle(lightboxImg, centerImage.ratio , 'max(40vw, 18rem + 18vw)');
       });
       await loadFirstThrees();
       addTabFunctionality();
@@ -121,7 +117,10 @@ document.addEventListener('DOMContentLoaded', () => {
         img.alt = descriptionsData[tabName][imageName];
         img.onload = () => {
           img.ratio = img.naturalWidth > img.naturalHeight ? Orientation.LANDSCAPE : Orientation.PORTRAIT;
-          img.addEventListener('click', () => rewriteLightbox('flex', img.src, img.alt));
+          img.addEventListener('click', () => {
+            rewriteLightbox('flex', img.src, img.alt);
+            applyImageStyle(lightboxImg, img.ratio , 'max(40vw, 18rem + 18vw)')
+          });
           tabGalleries[tabName].appendChild(img);
           resolve(img);
         }

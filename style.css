@@ -247,3 +247,19 @@ button:hover {
     font-size: max(2vw, 1rem);
     text-align: center;
 }
+#projects{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.project{
+    display: grid;
+    grid-template-rows: 12vw;
+    grid-template-columns: 25% 75%;
+    width: 100%;
+}
+.project iframe{
+    width: 100%;
+    height: auto;
+}

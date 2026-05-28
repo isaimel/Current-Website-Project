@@ -16,6 +16,9 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(jsonData => {
       const first_page_gallery = document.getElementById("first_page_gallery");
       galleryFunctionality(first_page_gallery, jsonData);
+      const projects = document.getElementById("projects");
+      addAllProjects(projects, jsonData);
+
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
   
@@ -209,6 +212,27 @@ document.addEventListener('DOMContentLoaded', () => {
     function plusDivs(n) {
       middleImgInd = modLoop(middleImgInd + n, imageDict[currentTab].length);
       showDivs();
+    }
+  }
+  function addAllProjects(projects_container, jsonData){
+    var projectsData = jsonData.projects;
+    var allProjects = Object.values(projectsData)
+    for (const projectInfo in allProjects){
+      var projectDiv = document.createElement("div");
+      var projecTextDiv = document.createElement("div");
+      var videoIframe = document.createElement("iframe");
+      projectDiv.appendChild(videoIframe);
+      projectDiv.appendChild(projecTextDiv);
+
+      var projectTitle = document.createElement("span");
+      var projectDescription = document.createElement("paragraph");
+      projecTextDiv.appendChild(projectTitle);
+      projecTextDiv.appendChild(projectDescription);
+      
+      projectTitle.innerText(projectInfo["headline"]);
+      projectDescription.innerText(projectInfo["description"]);
+      videoIframe.src = projectInfo["youtube_link"];
+
     }
   }
   function applyImageStyle(imgElement, ratio, percent = '100%') {

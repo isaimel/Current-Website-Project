@@ -1,9 +1,9 @@
 {   
     "projects":{
         "thesis_project": {
-            "headline": "TEST",
+            "headline": "TEST1",
             "youtube_link": "https://www.youtube.com/embed/GkSij1V7D1A?si=a99ZthB497Kwt0dB" ,
-            "description": "TEST"
+            "description": "TEST1"
         }
     },
     "tabs": {

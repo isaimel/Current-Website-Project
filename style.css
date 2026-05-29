@@ -210,24 +210,16 @@ a:link, a:visited {
   margin-top: -4vw;
 }
 .project{
-    display: grid;
-    grid-template-rows: 2fr auto;
-    grid-template-columns: 100%;
-    margin: 2vw;
-}
-.project div{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-}
-
-.project .project_text {
-    gap: 1vw;
+    margin: 2vw;
     text-align: center;
 }
 
 .project_text span{
+    width: fit-content;
     font-size: min(4vw, 1vw + 1rem);
 }
 .project_text p{
@@ -241,6 +233,18 @@ a:link, a:visited {
     height: var(--slides_dimension);
     justify-self: center;
 }
+
+.project img{
+    width: auto;
+    height: var(--slides_dimension);
+    justify-self: center;
+}
+.project .media_container{
+    display: flex;
+    flex-direction: row;
+}
+
+
 
 .about_me {
     display: grid;

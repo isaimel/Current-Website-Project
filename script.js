@@ -12,19 +12,17 @@ async function addAllProjects(projects_container, jsonData){
     projectDiv.classList.add("project");
 
     var mediaContainer = document.createElement("div");
+    mediaContainer.classList.add("media_container")
 
-    var projecTextDiv = document.createElement("div");
-    projecTextDiv.classList.add("project_text");
     var projectTitle = document.createElement("span");
     var projectDescription = document.createElement("p");
 
     projectTitle.innerText = projectInfo["headline"];
     projectDescription.innerText = projectInfo["description"];
 
-    projecTextDiv.appendChild(projectTitle);
-    projecTextDiv.appendChild(projectDescription);
+    projectDiv.appendChild(projectTitle);
     projectDiv.appendChild(mediaContainer);
-    projectDiv.appendChild(projecTextDiv);
+    projectDiv.appendChild(projectDescription);
     projects_container.appendChild(projectDiv);
 
     if (projectInfo["type"] === "video") {
@@ -37,7 +35,7 @@ async function addAllProjects(projects_container, jsonData){
     }
     if (projectInfo["type"] === "image") {
       for (const imageID of projectInfo["links"]) {
-        mediaContainer.appendChild(await loadImageSimple(imageID[0], imageID[1]));
+        mediaContainer.appendChild(await loadImageSimple(imageID));
       }
     }
   }

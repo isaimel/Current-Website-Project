@@ -37,7 +37,7 @@ async function addAllProjects(projects_container, jsonData){
     }
     if (projectInfo["type"] === "image") {
       for (const imageID of projectInfo["links"]) {
-        mediaContainer.appendChild(await loadImageSimple(imageID[0], imageID[2]));
+        mediaContainer.appendChild(await loadImageSimple(imageID[0], imageID[1]));
       }
     }
   }
@@ -47,7 +47,6 @@ async function addAllProjects(projects_container, jsonData){
       var img = new Image();
       var imagePath = `${parentPath}${folder}/${image}`;
       img.src = imagePath;
-      img.alt = descriptionsData[tabName][imageName];
       img.onload = () => {
         resolve(img);
       }

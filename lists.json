@@ -15,7 +15,7 @@
         "tulip": {
             "type": "image",
             "headline": "Building a Game Engine: Defending Your Farm",
-            "links": [["merchandise", "tulip_allison.png"], ["merchandise", "tulip_maddy"]],
+            "links": [["merchandise", "tulip_allison.png"], ["merchandise", "tulip_maddy.png"]],
             "description": "TEST1"
         }
     },

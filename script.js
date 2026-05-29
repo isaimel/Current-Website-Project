@@ -15,6 +15,7 @@ function addAllProjects(projects_container, jsonData){
     videoToReplace.id = projectInfo["video_ID"];
 
     var projecTextDiv = document.createElement("div");
+    projecTextDiv.classList.add("project_text");
     var projectTitle = document.createElement("span");
     var projectDescription = document.createElement("p");
     

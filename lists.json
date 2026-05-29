@@ -1,5 +1,5 @@
 {   
-    "video_projects":{
+    "projects":{
         "thesis_project": {
             "type": "video",
             "headline": "Preserving Artistry in Automated Terrain Generation Using Wave Function Collapse",

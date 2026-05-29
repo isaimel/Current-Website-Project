@@ -15,7 +15,7 @@
         "tulip": {
             "type": "image",
             "headline": "The Tulip Princess Tradition: 3 Years of Design",
-            "links": [["merchandise/tulip_allison.png", "merchandise/tulip_maddy.png", "merchandise/tulip_kelly.png"]],
+            "links": ["merchandise/tulip_allison.png", "merchandise/tulip_maddy.png", "merchandise/tulip_kelly.png"],
             "description": "TEST1"
         }
     },

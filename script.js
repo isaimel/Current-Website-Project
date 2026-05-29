@@ -16,9 +16,12 @@ document.addEventListener('DOMContentLoaded', () => {
     .then(jsonData => {
       const first_page_gallery = document.getElementById("first_page_gallery");
       galleryFunctionality(first_page_gallery, jsonData);
-      const projects = document.getElementById("projects");
-      addAllProjects(projects, jsonData);
 
+      const projects = document.getElementById("projects");
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0]
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
   
@@ -214,53 +217,44 @@ document.addEventListener('DOMContentLoaded', () => {
       showDivs();
     }
   }
+
+  function onYouTubeIframeAPIReady() {
+    fetch(queryURL)
+        .then(response => response.json())
+        .then(jsonData => addAllProjects(document.getElementById("projects"), jsonData));
+  }
+
   function addAllProjects(projects_container, jsonData){
-    var projectsData = jsonData.projects;
-    for (const projectInfo of Object.values(projectsData)){
+    for (const projectInfo of Object.values(jsonData.projects)){
       var projectDiv = document.createElement("div");
       projectDiv.classList.add("project");
-      var projecTextDiv = document.createElement("div");
+
       var videoToReplace = document.createElement("div");
+      videoToReplace.id = projectInfo["video_ID"];
 
-      projectDiv.appendChild(videoToReplace);
-      projectDiv.appendChild(projecTextDiv);
-
+      var projecTextDiv = document.createElement("div");
       var projectTitle = document.createElement("span");
       var projectDescription = document.createElement("p");
+      
+      projectDiv.appendChild(videoToReplace);
+      projectDiv.appendChild(projecTextDiv);
       projecTextDiv.appendChild(projectTitle);
       projecTextDiv.appendChild(projectDescription);
-      
+      projects_container.appendChild(projectDiv);
+
       console.log(projectInfo);
       projectTitle.innerText = projectInfo["headline"];
       projectDescription.innerText = projectInfo["description"];
 
-      projects_container.appendChild(projectDiv);
-
-      var tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0];
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      var player = onYouTubeIframeAPIReady(projectInfo["video_ID"]);
-      
+      var player = createYTFrame(projectInfo["video_ID"]);
     }
   }
-  function onYouTubeIframeAPIReady(toReplace, videoID) {
-    return new YT.Player(toReplace, {
+  function createYTFrame(videoID) {
+    return new YT.Player(videoID, {
       height: '390',
       width: '640',
       videoId: videoID,
-      playerVars: {
-        'playsinline': 1
-      },
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
     });
-  }
-
-  function onPlayerReady(event) {
-    event.target.playVideo();
   }
     // <div id="player"></div>
 
@@ -308,32 +302,5 @@ document.addEventListener('DOMContentLoaded', () => {
       return cap - 1
     }
     return n;
-  } 
-  function createYoutubeIframe(youtubeURL) {
-    var iframe = document.createElement("iframe");
-    iframe.src = youtubeURL;
-    iframe.title = "YouTube video player";
-    iframe.className = "youtube-embed";
-    iframe.setAttribute("allow", "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share");
-    iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
-    iframe.allowFullscreen = true;
-    console.log(iframe.src);
-    return iframe;
-}
-
-function onYouTubeIframeAPIReady() {
-    var player;
-    player = new YT.Player('player', {
-      height: '390',
-      width: '640',
-      videoId: 'M7lc1UVf-VE',
-      playerVars: {
-        'playsinline': 1
-      },
-      events: {
-        'onReady': onPlayerReady,
-        'onStateChange': onPlayerStateChange
-      }
-    });
   }
 });

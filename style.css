@@ -89,6 +89,7 @@ a:link, a:visited {
   color: var(--color-1);
   font-size: max(6vw, 2rem);
   background-color: white;
+  margin: 0 0 .6vw 0;
 }
 .tab_container {
     flex-direction: row;
@@ -211,14 +212,18 @@ a:link, a:visited {
     display: grid;
     grid-template-rows: 2fr auto;
     grid-template-columns: 100%;
+    margin: 2vw;
+}
+.project div{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .project .project_text {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
     gap: 1vw;
+    text-align: center;
 }
 
 .project_text span{
@@ -231,9 +236,9 @@ a:link, a:visited {
 
 .project iframe{
     display: block;
-    position: relative;
     width: 100%;
-    height: var(--slides_dimension)
+    height: var(--slides_dimension);
+    justify-self: center;
 }
 
 .about_me {

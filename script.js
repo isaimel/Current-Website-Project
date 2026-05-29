@@ -1,4 +1,47 @@
-document.addEventListener('DOMContentLoaded', () => {
+const jsonFileURL = 'https://isaimel.github.io/Current-Website-Project/lists.json';
+
+function onYouTubeIframeAPIReady() {
+  fetch(jsonFileURL)
+    .then(response => response.json())
+    .then(jsonData => addAllProjects(document.getElementById("projects"), jsonData));
+}
+
+function addAllProjects(projects_container, jsonData){
+  for (const projectInfo of Object.values(jsonData.projects)){
+    var projectDiv = document.createElement("div");
+    projectDiv.classList.add("project");
+
+    var videoToReplace = document.createElement("div");
+    videoToReplace.id = projectInfo["video_ID"];
+
+    var projecTextDiv = document.createElement("div");
+    var projectTitle = document.createElement("span");
+    var projectDescription = document.createElement("p");
+    
+    projectDiv.appendChild(videoToReplace);
+    projectDiv.appendChild(projecTextDiv);
+    projecTextDiv.appendChild(projectTitle);
+    projecTextDiv.appendChild(projectDescription);
+    projects_container.appendChild(projectDiv);
+
+    console.log(projectInfo);
+    projectTitle.innerText = projectInfo["headline"];
+    projectDescription.innerText = projectInfo["description"];
+
+    var player = createYTFrame(projectInfo["video_ID"]);
+  }
+}
+function createYTFrame(videoID) {
+  return new YT.Player(videoID, {
+    height: '390',
+    width: '640',
+    videoId: videoID,
+    playerVars: {
+      origin: window.location.origin
+    }
+  });
+}
+
   const Display = Object.freeze({
     SCROLL:   Symbol("scroll"),
     ALL:  Symbol("all")
@@ -9,21 +52,20 @@ document.addEventListener('DOMContentLoaded', () => {
     LANDSCAPE:  Symbol("landscape")
   });
   
-  const queryURL = 'https://isaimel.github.io/Current-Website-Project/lists.json';
   
-  fetch(queryURL)
+  fetch(jsonFileURL)
     .then(response => response.json())
     .then(jsonData => {
       const first_page_gallery = document.getElementById("first_page_gallery");
       galleryFunctionality(first_page_gallery, jsonData);
-
-      const projects = document.getElementById("projects");
-      var tag = document.createElement('script');
-      tag.src = "https://www.youtube.com/iframe_api";
-      var firstScriptTag = document.getElementsByTagName('script')[0]
-      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
     })
     .catch(error => console.log('Error during fetch: ' + error.message));
+  
+  const projects = document.getElementById("projects");
+  var tag = document.createElement('script');
+  tag.src = "https://www.youtube.com/iframe_api";
+  var firstScriptTag = document.getElementsByTagName('script')[0]
+  firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
   
   function galleryFunctionality(gallery, jsonData){
     const lightboxContainer = document.getElementById('lightboxContainer');
@@ -218,44 +260,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  function onYouTubeIframeAPIReady() {
-    fetch(queryURL)
-        .then(response => response.json())
-        .then(jsonData => addAllProjects(document.getElementById("projects"), jsonData));
-  }
 
-  function addAllProjects(projects_container, jsonData){
-    for (const projectInfo of Object.values(jsonData.projects)){
-      var projectDiv = document.createElement("div");
-      projectDiv.classList.add("project");
 
-      var videoToReplace = document.createElement("div");
-      videoToReplace.id = projectInfo["video_ID"];
-
-      var projecTextDiv = document.createElement("div");
-      var projectTitle = document.createElement("span");
-      var projectDescription = document.createElement("p");
-      
-      projectDiv.appendChild(videoToReplace);
-      projectDiv.appendChild(projecTextDiv);
-      projecTextDiv.appendChild(projectTitle);
-      projecTextDiv.appendChild(projectDescription);
-      projects_container.appendChild(projectDiv);
-
-      console.log(projectInfo);
-      projectTitle.innerText = projectInfo["headline"];
-      projectDescription.innerText = projectInfo["description"];
-
-      var player = createYTFrame(projectInfo["video_ID"]);
-    }
-  }
-  function createYTFrame(videoID) {
-    return new YT.Player(videoID, {
-      height: '390',
-      width: '640',
-      videoId: videoID,
-    });
-  }
+  
     // <div id="player"></div>
 
     // <script>
@@ -303,4 +310,3 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     return n;
   }
-});

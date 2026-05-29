@@ -220,9 +220,9 @@ document.addEventListener('DOMContentLoaded', () => {
       var projectDiv = document.createElement("div");
       projectDiv.classList.add("project");
       var projecTextDiv = document.createElement("div");
-      var videoIframe = createYoutubeIframe(projectInfo.youtube_link);
+      var videoToReplace = document.createElement("div");
 
-      projectDiv.appendChild(videoIframe);
+      projectDiv.appendChild(videoToReplace);
       projectDiv.appendChild(projecTextDiv);
 
       var projectTitle = document.createElement("span");
@@ -240,12 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
       tag.src = "https://www.youtube.com/iframe_api";
       var firstScriptTag = document.getElementsByTagName('script')[0];
       firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-      var player = onYouTubeIframeAPIReady(videoID);
+      var player = onYouTubeIframeAPIReady(projectInfo["video_ID"]);
       
     }
   }
-  function onYouTubeIframeAPIReady(videoID) {
-    return new YT.Player('player', {
+  function onYouTubeIframeAPIReady(toReplace, videoID) {
+    return new YT.Player(toReplace, {
       height: '390',
       width: '640',
       videoId: videoID,
@@ -259,6 +259,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  function onPlayerReady(event) {
+    event.target.playVideo();
+  }
     // <div id="player"></div>
 
     // <script>

@@ -11,6 +11,12 @@
             "headline": "Building a Game Engine: Defending Your Farm",
             "links": ["wGFAiUFf8XQ"],
             "description": "TEST1"
+        },
+        "tulip": {
+            "type": "image",
+            "headline": "Building a Game Engine: Defending Your Farm",
+            "links": [["merchandise", "tulip_allison.png"], ["merchandise", "tulip_maddy"]],
+            "description": "TEST1"
         }
     },
     "tabs": {

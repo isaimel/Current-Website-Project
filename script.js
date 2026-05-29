@@ -6,21 +6,12 @@ function onYouTubeIframeAPIReady() {
     .then(jsonData => addAllProjects(document.getElementById("projects"), jsonData));
 }
 
-function addAllProjects(projects_container, jsonData){
+async function addAllProjects(projects_container, jsonData){
   for (const projectInfo of Object.values(jsonData.projects)){
     var projectDiv = document.createElement("div");
     projectDiv.classList.add("project");
 
     var mediaContainer = document.createElement("div");
-
-    if (projectInfo["type"] === "video") {
-      for (const videoID of projectInfo["links"]) {
-        var videoToReplace = document.createElement("div");
-        videoToReplace.id = videoID;
-        mediaContainer.appendChild(videoToReplace);
-        createYTFrame(videoID);
-      }
-    }
 
     var projecTextDiv = document.createElement("div");
     projecTextDiv.classList.add("project_text");
@@ -35,8 +26,34 @@ function addAllProjects(projects_container, jsonData){
     projectDiv.appendChild(mediaContainer);
     projectDiv.appendChild(projecTextDiv);
     projects_container.appendChild(projectDiv);
+
+    if (projectInfo["type"] === "video") {
+      for (const videoID of projectInfo["links"]) {
+        var videoToReplace = document.createElement("div");
+        videoToReplace.id = videoID;
+        mediaContainer.appendChild(videoToReplace);
+        createYTFrame(videoID);
+      }
+    }
+    if (projectInfo["type"] === "image") {
+      for (const imageID of projectInfo["links"]) {
+        mediaContainer.appendChild(await loadImageSimple(imageID[0], imageID[2]));
+      }
+    }
   }
 }
+  function loadImageSimple(folder, image, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
+    return new Promise ((resolve) => {
+      var img = new Image();
+      var imagePath = `${parentPath}${folder}/${image}`;
+      img.src = imagePath;
+      img.alt = descriptionsData[tabName][imageName];
+      img.onload = () => {
+        resolve(img);
+      }
+      img.onerror = () => resolve(img);
+    });
+  }
 
 function createYTFrame(videoID) {
   return new YT.Player(videoID, {

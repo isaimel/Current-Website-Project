@@ -263,6 +263,6 @@ button:hover {
     width: 100%;
 }
 .project iframe{
-    width: auto;
     height: 100%;
+    aspect-ratio: 16 / 9;
 }

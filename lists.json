@@ -3,13 +3,13 @@
         "thesis_project": {
             "type": "video",
             "headline": "Preserving Artistry in Automated Terrain Generation Using Wave Function Collapse",
-            "video_IDs": ["GkSij1V7D1A"],
+            "links": ["GkSij1V7D1A"],
             "description": "TEST1"
         },
         "game_engine": {
             "type": "video",
             "headline": "Building a Game Engine: Defending Your Farm",
-            "video_IDs": ["wGFAiUFf8XQ"],
+            "links": ["wGFAiUFf8XQ"],
             "description": "TEST1"
         }
     },

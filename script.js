@@ -14,7 +14,7 @@ function addAllProjects(projects_container, jsonData){
     var mediaContainer = document.createElement("div");
 
     if (projectInfo["type"] === "video") {
-      for (const videoID of projectInfo["video_IDs"]) {
+      for (const videoID of projectInfo["links"]) {
         var videoToReplace = document.createElement("div");
         videoToReplace.id = videoID;
         mediaContainer.appendChild(videoToReplace);

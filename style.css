@@ -88,7 +88,6 @@ a:link, a:visited {
 .gallery_header{
   color: var(--color-1);
   font-size: max(6vw, 2rem);
-  padding: .2rem;
   background-color: white;
 }
 .tab_container {
@@ -202,8 +201,11 @@ a:link, a:visited {
 }
 
 #projects{
-    gap: 2vw;
+    gap: 4vw;
     width: 80vw;
+}
+#projects > :nth-child(2) {
+  margin-top: -4vw;
 }
 .project{
     display: grid;
@@ -221,6 +223,10 @@ a:link, a:visited {
 
 .project_text span{
     font-size: min(4vw, 1vw + 1rem);
+}
+.project_text p{
+    top: 0;
+    margin: 0;
 }
 
 .project iframe{
@@ -265,7 +271,6 @@ a:link, a:visited {
 .bio span{
     font-size: max(3vw, 1.6rem);
 }
-
 
 .footer{
     color: var(--color-1);

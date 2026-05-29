@@ -40,10 +40,10 @@ async function addAllProjects(projects_container, jsonData){
     }
   }
 }
-  function loadImageSimple(imagePath, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
+  function loadImageSimple(imageLocation, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
     return new Promise ((resolve) => {
       var img = new Image();
-      var imagePath = `${parentPath}/${imagePath}`;
+      var imagePath = `${parentPath}/${imageLocation}`;
       img.src = imagePath;
       img.onload = () => {
         resolve(img);

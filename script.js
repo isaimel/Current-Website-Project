@@ -236,8 +236,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
       projects_container.appendChild(projectDiv);
 
+      var tag = document.createElement('script');
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+      var player = onYouTubeIframeAPIReady(videoID);
+      
     }
   }
+  function onYouTubeIframeAPIReady(videoID) {
+    return new YT.Player('player', {
+      height: '390',
+      width: '640',
+      videoId: videoID,
+      playerVars: {
+        'playsinline': 1
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+    // <div id="player"></div>
+
+    // <script>
+    //   // 2. This code loads the IFrame Player API code asynchronously.
+    //   var tag = document.createElement('script');
+
+    //   
+    //   var firstScriptTag = document.getElementsByTagName('script')[0];
+    //   firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    //   // 3. This function creates an <iframe> (and YouTube player)
+    //   //    after the API code downloads.
+    //   var player;
+    //   function onYouTubeIframeAPIReady() {
+    //     player = new YT.Player('player', {
+    //       height: '390',
+    //       width: '640',
+    //       videoId: 'M7lc1UVf-VE',
+    //       playerVars: {
+    //         'playsinline': 1
+    //       },
+    //       events: {
+    //         'onReady': onPlayerReady,
+    //         'onStateChange': onPlayerStateChange
+    //       }
+    //     });
+    //   }
+
   function applyImageStyle(imgElement, ratio, percent = '100%') {
     if (ratio === undefined) ratio = Orientation.PORTRAIT; 
     if (ratio == Orientation.LANDSCAPE) {
@@ -268,4 +317,20 @@ document.addEventListener('DOMContentLoaded', () => {
     console.log(iframe.src);
     return iframe;
 }
+
+function onYouTubeIframeAPIReady() {
+    var player;
+    player = new YT.Player('player', {
+      height: '390',
+      width: '640',
+      videoId: 'M7lc1UVf-VE',
+      playerVars: {
+        'playsinline': 1
+      },
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
 });

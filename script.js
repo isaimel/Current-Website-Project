@@ -11,27 +11,33 @@ function addAllProjects(projects_container, jsonData){
     var projectDiv = document.createElement("div");
     projectDiv.classList.add("project");
 
-    var videoToReplace = document.createElement("div");
-    videoToReplace.id = projectInfo["video_ID"];
+    var mediaContainer = document.createElement("div");
+
+    if (projectInfo["type"] === "video") {
+      for (const videoID of projectInfo["video_IDs"]) {
+        var videoToReplace = document.createElement("div");
+        videoToReplace.id = videoID;
+        mediaContainer.appendChild(videoToReplace);
+        createYTFrame(videoID);
+      }
+    }
 
     var projecTextDiv = document.createElement("div");
     projecTextDiv.classList.add("project_text");
     var projectTitle = document.createElement("span");
     var projectDescription = document.createElement("p");
-    
-    projectDiv.appendChild(videoToReplace);
-    projectDiv.appendChild(projecTextDiv);
-    projecTextDiv.appendChild(projectTitle);
-    projecTextDiv.appendChild(projectDescription);
-    projects_container.appendChild(projectDiv);
 
-    console.log(projectInfo);
     projectTitle.innerText = projectInfo["headline"];
     projectDescription.innerText = projectInfo["description"];
 
-    var player = createYTFrame(projectInfo["video_ID"]);
+    projecTextDiv.appendChild(projectTitle);
+    projecTextDiv.appendChild(projectDescription);
+    projectDiv.appendChild(mediaContainer);
+    projectDiv.appendChild(projecTextDiv);
+    projects_container.appendChild(projectDiv);
   }
 }
+
 function createYTFrame(videoID) {
   return new YT.Player(videoID, {
     height: '200',

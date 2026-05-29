@@ -17,8 +17,10 @@ async function addAllProjects(projects_container, jsonData){
     var projectTitle = document.createElement("span");
     var projectDescription = document.createElement("p");
 
-    projectTitle.innerText = projectInfo["headline"];
-    projectDescription.innerText = projectInfo["description"];
+    projectTitle.innerHTML = projectInfo["headline"];
+    projectTitle.classList.add("project_title");
+
+    projectDescription.innerHTML = projectInfo["description"];
 
     projectDiv.appendChild(projectTitle);
     projectDiv.appendChild(mediaContainer);
@@ -43,8 +45,7 @@ async function addAllProjects(projects_container, jsonData){
   function loadImageSimple(imageLocation, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
     return new Promise ((resolve) => {
       var img = new Image();
-      var imagePath = `${parentPath}/${imageLocation}`;
-      img.src = imagePath;
+      img.src = `${parentPath}/${imageLocation}`;
       img.onload = () => {
         resolve(img);
       }

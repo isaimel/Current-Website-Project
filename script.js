@@ -22,8 +22,8 @@ async function addAllProjects(projects_container, jsonData){
 
     projectDescription.innerHTML = projectInfo["description"];
 
-    projectDiv.appendChild(projectTitle);
     projectDiv.appendChild(mediaContainer);
+    projectDiv.appendChild(projectTitle);
     projectDiv.appendChild(projectDescription);
     projects_container.appendChild(projectDiv);
 

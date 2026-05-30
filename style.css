@@ -224,6 +224,47 @@ a:link, a:visited {
     animation: initialZoom 0.8s ease-in-out;
 }
 
+.media_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 1vw;
+}
+.project iframe{
+    display: block;
+    justify-self: center;
+    animation: initialZoom 0.8s ease-in-out;
+}
+
+.youtube_iframe{
+    width: 100%;
+    height: var(--slides_dimension);
+}
+
+.website_iframe {
+  width: 200%;
+  min-height: 180%;
+
+  transform: scale(0.55);
+  transform-origin: center center;
+}
+
+.website_container {
+    display: flex;
+    width: 100%;
+    height: var(--slides_dimension);
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.project img{
+    height: calc(var(--slides_dimension) * 3/4);
+    animation: initialZoom 0.8s ease-in-out;
+}
+
 .project_title{
     font-size: 2.8vw;
     font-weight: bold;
@@ -239,28 +280,9 @@ a:link, a:visited {
     margin: 0;
 }
 
-.project iframe{
-    display: block;
-    width: 100%;
-    height: var(--slides_dimension);
-    justify-self: center;
-    animation: initialZoom 0.8s ease-in-out;
 
-}
 
-.project img{
-    width: auto;
-    height: calc(var(--slides_dimension) * 3/4);
-    justify-self: center;
-    animation: initialZoom 0.8s ease-in-out;
 
-}
-
-.project .media_container{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-}
 
 .about_me {
     display: grid;

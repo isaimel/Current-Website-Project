@@ -6,8 +6,8 @@ function onYouTubeIframeAPIReady() {
     .then(jsonData => addAllProjects(document.getElementById("projects"), jsonData));
 }
 
-async function addAllProjects(projects_container, jsonData){
-  for (const projectInfo of Object.values(jsonData.projects)){
+function createProject(projectInfo) {
+  return new Promise ((resolve) => {
     var projectDiv = document.createElement("div");
     projectDiv.classList.add("project");
 
@@ -25,13 +25,15 @@ async function addAllProjects(projects_container, jsonData){
     projectDiv.appendChild(mediaContainer);
     projectDiv.appendChild(projectTitle);
     projectDiv.appendChild(projectDescription);
-    projects_container.appendChild(projectDiv);
 
     if (projectInfo["type"] === "video") {
       for (const videoID of projectInfo["links"]) {
         var videoToReplace = document.createElement("div");
         videoToReplace.id = videoID;
+        videoToReplace.classList.add("youtube_iframe");
+
         mediaContainer.appendChild(videoToReplace);
+
         createYTFrame(videoID);
       }
     }
@@ -44,22 +46,33 @@ async function addAllProjects(projects_container, jsonData){
       for (const imageID of projectInfo["links"]) {
         var websiteFrame = document.createElement("iframe");
         websiteFrame.src = imageID;
-        mediaContainer.appendChild(websiteFrame);
+        websiteFrame.classList.add("website_iframe");
+
+        var websiteDiv = document.createElement("div");
+        websiteDiv.appendChild(websiteFrame);
+        mediaContainer.appendChild(websiteDiv);
+        websiteDiv.classList.add("website_container");
       }
     }
-    
+    resolve(projectDiv);
+  }); 
+}
+async function addAllProjects(projects_container, jsonData){
+  for (const projectInfo of Object.values(jsonData.projects)){
+    await createProject(projectInfo).then(project => projects_container.appendChild(project));
   }
 }
-  function loadImageSimple(imageLocation, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
-    return new Promise ((resolve) => {
-      var img = new Image();
-      img.src = `${parentPath}/${imageLocation}`;
-      img.onload = () => {
-        resolve(img);
-      }
-      img.onerror = () => resolve(img);
-    });
-  }
+
+function loadImageSimple(imageLocation, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
+  return new Promise ((resolve) => {
+    var img = new Image();
+    img.src = `${parentPath}/${imageLocation}`;
+    img.onload = () => {
+      resolve(img);
+    }
+    img.onerror = () => resolve(img);
+  });
+}
 
 function createYTFrame(videoID) {
   return new YT.Player(videoID, {

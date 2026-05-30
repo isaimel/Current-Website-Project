@@ -3,16 +3,19 @@
 @import url("./styles/projects.css");
 
 :root {
-  --color-1: black;
-  --slides_dimension: max(32vw, 14rem + 16vw);
+    /* --pseudo-white: aliceblue;
+    --color-1: lightblue; */
+    --pseudo-white: royalblue;
+    --color-1: aliceblue;
+    --slides_dimension: max(32vw, 14rem + 16vw);
 }
 button{
     border: none;
     cursor: pointer;
     padding: .2rem .4rem;
     opacity: 0.8;
-    background-color: black;
-    color: white;
+    background-color: var(--color-1);
+    color: var(--pseudo-white);
     font-size: 1.5rem;
     justify-content: center;
     align-items: center;
@@ -28,6 +31,7 @@ body {
     margin: 0;
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     gap: 6vw;
+    background-color: var(--pseudo-white);
 }
 body div{
     display: flex;
@@ -46,10 +50,17 @@ a:link, a:visited {
     color: var(--color-1);
     height: max(22vw, 18vw + 2rem);
 }
+.section_title{
+    color: var(--color-1);
+    font-size: max(5vw, 1.6rem);
+    background-color: inherit;
+    margin: 0 0 .6vw 0;
+    font: bold;
+}
 
 .name{
   height: fit-content;
-  font-size: max(12vw, 8vw + 1rem);
+  font-size: max(8vw, 4vw + 1rem);
 }
 
 .thank_you{

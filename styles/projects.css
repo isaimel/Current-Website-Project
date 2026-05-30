@@ -12,11 +12,13 @@
     flex-direction: row;
     text-align: center;
     gap:1vw;
-    background-color: black;
-    color: white;
+    background-color: var(--color-1);
+    color: var(--pseudo-white);
     padding: 2vw 2vw;
     animation: initialZoom 0.8s ease-in-out;
     width: 100%;
+    border-radius: .2rem;
+    border: .2rem solid var(--pseudo-white);
 }
 
 .media_container{
@@ -26,6 +28,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     gap: 1vw;
+    flex: 1.6;
 }
 .project iframe{
     display: block;
@@ -65,9 +68,8 @@
     font-weight: bold;
 }
 
-.project_text span{
-    width: fit-content;
-    font-size: min(4vw, 1vw + 1rem);
+.project_text{ 
+    flex: 1;
 }
 .project p{
     top: 0;

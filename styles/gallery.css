@@ -18,7 +18,7 @@
 
 #lightboxContainer span {
     opacity: 1;
-    color: white;
+    color: var(--pseudo-white);
     width: 50%;
     font-size: max(2vw, 1rem);
     text-align: center;
@@ -32,13 +32,6 @@
     width: 100%;
 }
 
-.gallery_header{
-  color: var(--color-1);
-  font-size: max(5vw, 1.6rem);
-  background-color: white;
-  margin: 0 0 .6vw 0;
-  font: bold;
-}
 .tab_container {
     flex-direction: row;
     width: 100%;
@@ -49,7 +42,7 @@
   flex: 1;
   height: 100%;
   user-select: none;
-  background-color: white;
+  background-color: inherit;
   color: var(--color-1);
 }
 
@@ -125,7 +118,7 @@
 .item_description{
   display: none;
   align-items: start;
-  color: white;
+  color: var(--pseudo-white);
   width: 100%;
   height: max(5.5vw, 3.6rem);
   text-align: center;

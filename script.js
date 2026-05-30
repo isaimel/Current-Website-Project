@@ -30,7 +30,7 @@ async function addAllProjects(projects_container, jsonData){
   async function createProject(projectInfo) {
     var projectDiv = document.createElement("div");
     var projectTextDiv = document.createElement("div");
-
+    projectTextDiv.classList.add("project_text");
     projectDiv.classList.add("project");
     projectDiv.style.flexDirection = projectInfo["direction"];
 
@@ -230,7 +230,7 @@ function galleryFunctionality(gallery, jsonData){
     currentTab = newTabName;
 
     tabDivList[currentTab].style.backgroundColor = "var(--color-1)";
-    tabDivList[currentTab].style.color = "white";
+    tabDivList[currentTab].style.color = "var(--pseudo-white)";
 
     if (currentGallery == Display.SCROLL) showDivs();
     else showGallery(oldTabName);

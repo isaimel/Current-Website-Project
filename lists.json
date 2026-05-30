@@ -4,25 +4,29 @@
             "type": "video",
             "headline": "Preserving Artistry in Automated Terrain Generation Using <br> Wave Function Collapse",
             "links": ["GkSij1V7D1A"],
-            "description": "TEST1"
+            "description": "TEST1",
+            "direction": "row"
         },
         "game_engine": {
             "type": "video",
             "headline": "Building a Game Engine: Defending Your Farm",
             "links": ["wGFAiUFf8XQ"],
-            "description": "TEST1"
+            "description": "TEST1",
+            "direction": "row"
         },
         "tulip": {
             "type": "image",
             "headline": "The Tulip Princess Tradition: 3 Years of Design",
             "links": ["merchandise/tulip_allison.png", "merchandise/tulip_maddy.png", "merchandise/tulip_kelly.png"],
-            "description": "TEST1"
+            "description": "TEST1",
+            "direction": "column"
         },
         "dndWebsite": {
             "type": "website",
             "headline": "Website Exercise",
             "links": ["https://isaimel.github.io/DND-Website/"],
-            "description": "TEST1"
+            "description": "TEST1",
+            "direction": "row"
         }
     },
     "tabs": {

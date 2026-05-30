@@ -1,0 +1,36 @@
+
+.about_me {
+    display: grid;
+    height: var(--slides_dimension);
+    width: 100%;
+    grid-template-rows: auto;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2vw;
+    padding: 0 2vw;
+}
+.about_me div {
+    display: flex;
+    flex-direction: column;
+    justify-content: right;
+    align-items: center;
+    box-sizing: content-box;
+    padding: 0;
+}
+.about_me img{
+    height: var(--slides_dimension);
+    width: auto;
+    animation: initialZoom 0.8s ease-in-out;
+}
+.study{
+    gap: 1vw;
+    font-size: max(2vw, 1rem);
+    padding: 0 1vw;
+}
+.bio{
+    align-items: left;
+    padding: 2vw;
+    font-size: max(1.5vw, .8rem);
+}
+.bio span{
+    font-size: max(3vw, 1.6rem);
+}

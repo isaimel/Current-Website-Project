@@ -29,7 +29,10 @@ async function addAllProjects(projects_container, jsonData){
   
   async function createProject(projectInfo) {
     var projectDiv = document.createElement("div");
+    var projectTextDiv = document.createElement("div");
+
     projectDiv.classList.add("project");
+    projectDiv.style.flexDirection = projectInfo["direction"];
 
     var mediaContainer = document.createElement("div");
     mediaContainer.classList.add("media_container")
@@ -43,8 +46,9 @@ async function addAllProjects(projects_container, jsonData){
     projectDescription.innerHTML = projectInfo["description"];
 
     projectDiv.appendChild(mediaContainer);
-    projectDiv.appendChild(projectTitle);
-    projectDiv.appendChild(projectDescription);
+    projectTextDiv.appendChild(projectTitle);
+    projectTextDiv.appendChild(projectDescription);
+    projectDiv.appendChild(projectTextDiv);
 
     if (projectInfo["type"] === "video") {
       for (const videoID of projectInfo["links"]) {

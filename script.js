@@ -42,9 +42,12 @@ async function addAllProjects(projects_container, jsonData){
     }
     else if (projectInfo["type"] === "website") {
       for (const imageID of projectInfo["links"]) {
-        mediaContainer.appendChild(await loadImageSimple(imageID));
+        var websiteFrame = document.createElement("iframe");
+        websiteFrame.src = imageID;
+        mediaContainer.appendChild(websiteFrame);
       }
     }
+    
   }
 }
   function loadImageSimple(imageLocation, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {

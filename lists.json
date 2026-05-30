@@ -17,6 +17,12 @@
             "headline": "The Tulip Princess Tradition: 3 Years of Design",
             "links": ["merchandise/tulip_allison.png", "merchandise/tulip_maddy.png", "merchandise/tulip_kelly.png"],
             "description": "TEST1"
+        },
+        "dndWebsite": {
+            "type": "website",
+            "headline": "The Tulip Princess Tradition: 3 Years of Design",
+            "links": ["https://isaimel.github.io/DND-Website/"],
+            "description": "TEST1"
         }
     },
     "tabs": {

@@ -35,7 +35,12 @@ async function addAllProjects(projects_container, jsonData){
         createYTFrame(videoID);
       }
     }
-    if (projectInfo["type"] === "image") {
+    else if (projectInfo["type"] === "image") {
+      for (const imageID of projectInfo["links"]) {
+        mediaContainer.appendChild(await loadImageSimple(imageID));
+      }
+    }
+    else if (projectInfo["type"] === "website") {
       for (const imageID of projectInfo["links"]) {
         mediaContainer.appendChild(await loadImageSimple(imageID));
       }

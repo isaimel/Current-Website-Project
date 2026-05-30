@@ -20,9 +20,6 @@ fetch(jsonFileURL)
   })
   .catch(error => console.log('Error during fetch: ' + error.message));
 
-
-
-
 async function addAllProjects(projects_container, jsonData){
   var allPromises = [];
   for (const project of Object.values(jsonData.projects)){

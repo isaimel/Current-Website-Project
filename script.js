@@ -1,13 +1,36 @@
 const jsonFileURL = 'https://isaimel.github.io/Current-Website-Project/lists.json';
 
-function onYouTubeIframeAPIReady() {
-  fetch(jsonFileURL)
-    .then(response => response.json())
-    .then(jsonData => addAllProjects(document.getElementById("projects"), jsonData));
-}
+const Display = Object.freeze({
+  SCROLL:   Symbol("scroll"),
+  ALL:  Symbol("all")
+});
 
-function createProject(projectInfo) {
-  return new Promise ((resolve) => {
+const Orientation = Object.freeze({
+  PORTRAIT:   Symbol("portrait"),
+  LANDSCAPE:  Symbol("landscape")
+});
+
+fetch(jsonFileURL)
+  .then(response => response.json())
+  .then(jsonData => {
+    prepareYoutubeAPI();
+    const first_page_gallery = document.getElementById("first_page_gallery");
+    galleryFunctionality(first_page_gallery, jsonData);
+    addAllProjects(document.getElementById("projects"), jsonData);
+  })
+  .catch(error => console.log('Error during fetch: ' + error.message));
+
+
+
+
+async function addAllProjects(projects_container, jsonData){
+  var allPromises = [];
+  for (const project of Object.values(jsonData.projects)){
+    allPromises.push(createProject(project).then(projectDiv => projects_container.appendChild(projectDiv)));
+  }
+  return Promise.all(allPromises)
+  
+  async function createProject(projectInfo) {
     var projectDiv = document.createElement("div");
     projectDiv.classList.add("project");
 
@@ -31,10 +54,7 @@ function createProject(projectInfo) {
         var videoToReplace = document.createElement("div");
         videoToReplace.id = videoID;
         videoToReplace.classList.add("youtube_iframe");
-
         mediaContainer.appendChild(videoToReplace);
-
-        createYTFrame(videoID);
       }
     }
     else if (projectInfo["type"] === "image") {
@@ -54,58 +74,9 @@ function createProject(projectInfo) {
         websiteDiv.classList.add("website_container");
       }
     }
-    resolve(projectDiv);
-  }); 
-}
-async function addAllProjects(projects_container, jsonData){
-  for (const projectInfo of Object.values(jsonData.projects)){
-    await createProject(projectInfo).then(project => projects_container.appendChild(project));
+      return projectDiv;
   }
 }
-
-function loadImageSimple(imageLocation, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
-  return new Promise ((resolve) => {
-    var img = new Image();
-    img.src = `${parentPath}/${imageLocation}`;
-    img.onload = () => {
-      resolve(img);
-    }
-    img.onerror = () => resolve(img);
-  });
-}
-
-function createYTFrame(videoID) {
-  return new YT.Player(videoID, {
-    height: '200',
-    width: '200',
-    videoId: videoID
-  });
-}
-
-const Display = Object.freeze({
-  SCROLL:   Symbol("scroll"),
-  ALL:  Symbol("all")
-});
-
-const Orientation = Object.freeze({
-  PORTRAIT:   Symbol("portrait"),
-  LANDSCAPE:  Symbol("landscape")
-});
-
-
-fetch(jsonFileURL)
-  .then(response => response.json())
-  .then(jsonData => {
-    const first_page_gallery = document.getElementById("first_page_gallery");
-    galleryFunctionality(first_page_gallery, jsonData);
-  })
-  .catch(error => console.log('Error during fetch: ' + error.message));
-
-const projects = document.getElementById("projects");
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0]
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
 
 function galleryFunctionality(gallery, jsonData){
   const lightboxContainer = document.getElementById('lightboxContainer');
@@ -150,6 +121,7 @@ function galleryFunctionality(gallery, jsonData){
       rewriteLightbox('flex', centerImage.src, centerImage.alt);
       applyImageStyle(lightboxImg, centerImage.ratio , 'max(40vw, 18rem + 18vw)');
     });
+
     await loadFirstThrees();
     addTabFunctionality();
     await loadRemainingImages();
@@ -299,7 +271,6 @@ function galleryFunctionality(gallery, jsonData){
     showDivs();
   }
 }
-
 function applyImageStyle(imgElement, ratio, percent = '100%') {
   if (ratio === undefined) ratio = Orientation.PORTRAIT; 
   if (ratio == Orientation.LANDSCAPE) {
@@ -318,4 +289,39 @@ function modLoop(n, cap){
     return cap - 1
   }
   return n;
+}
+function loadImageSimple(imageLocation, parentPath = 'https://isaimel.github.io/Current-Website-Project/assets/') {
+  return new Promise ((resolve) => {
+    var img = new Image();
+    img.src = `${parentPath}/${imageLocation}`;
+    img.onload = () => {
+      resolve(img);
+    }
+    img.onerror = () => resolve(img);
+  });
+}
+function createYTFrame(videoID) {
+  return new YT.Player(videoID, {
+    height: '200',
+    width: '200',
+    videoId: videoID
+  });
+}
+function prepareYoutubeAPI(){
+    const projects = document.getElementById("projects");
+    var tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    var firstScriptTag = document.getElementsByTagName('script')[0]
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+}
+function onYouTubeIframeAPIReady() {
+  fetch(jsonFileURL)
+    .then(response => response.json())
+    .then(jsonData => fillYoutubeIFrames(document.getElementById("projects")));
+}
+function fillYoutubeIFrames(parentDiv){
+  var allFrames = parentDiv.querySelectorAll(".youtube_iframe");
+    allFrames.forEach(frame => {
+    createYTFrame(frame.id)
+  });
 }

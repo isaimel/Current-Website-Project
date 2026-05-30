@@ -280,10 +280,6 @@ a:link, a:visited {
     margin: 0;
 }
 
-
-
-
-
 .about_me {
     display: grid;
     height: var(--slides_dimension);
